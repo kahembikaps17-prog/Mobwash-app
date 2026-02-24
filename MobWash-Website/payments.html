@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Methods | Mobwash</title>
+    <link rel="stylesheet" href="css/styles.css/payments.css" />
+    <link rel="stylesheet" href="css/styles.css/global.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="dark-theme">
+    <div class="payments-wrapper">
+      <div class="plain-header">
+        <div class="header-top-row">
+          <a href="settings.html" class="minimal-back" data-back
+            ><i class="bx bx-chevron-left"></i
+          ></a>
+        </div>
+        <div class="plain-title-area">
+          <h1>Payment Methods</h1>
+          <p>Manage your wallets and cards</p>
+        </div>
+      </div>
+
+      <div class="payment-content">
+        <label class="card-label">Digital Wallets</label>
+
+        <div class="momo-grid">
+          <div
+            class="momo-card airtel is-linked active"
+            data-method="Airtel Money"
+          >
+            <div class="momo-logo">Airtel</div>
+            <div class="momo-info">
+              <strong>Airtel Money</strong>
+              <span>Secured • ••• 442</span>
+            </div>
+            <i class="bx bxs-check-circle status-icon"></i>
+          </div>
+
+          <div class="momo-card mtn" data-method="MTN MoMo">
+            <div class="momo-logo">MTN</div>
+            <div class="momo-info">
+              <strong>MTN MoMo</strong>
+              <span>Link Account</span>
+            </div>
+            <i class="bx bx-plus-circle status-icon"></i>
+          </div>
+
+          <div class="momo-card zamtel" data-method="Zamtel Kwacha">
+            <div class="momo-logo">Zamtel</div>
+            <div class="momo-info">
+              <strong>Zamtel Kwacha</strong>
+              <span>Link Account</span>
+            </div>
+            <i class="bx bx-plus-circle status-icon"></i>
+          </div>
+        </div>
+
+        <label class="card-label">Credit / Debit Cards</label>
+        <div class="luxury-credit-card visa">
+          <div class="card-glass-overlay"></div>
+          <div class="card-top">
+            <i class="bx bxl-visa card-logo"></i>
+            <span class="chip"></span>
+          </div>
+          <div class="card-number">**** **** **** 4421</div>
+          <div class="card-footer">
+            <div class="card-holder">
+              <label>Card Holder</label>
+              <strong>ALEX JOHNSON</strong>
+            </div>
+            <div class="card-expiry">
+              <label>Expires</label>
+              <strong>12/28</strong>
+            </div>
+          </div>
+        </div>
+
+        <label class="card-label">Other Methods</label>
+        <div class="premium-card">
+          <div class="luxury-field">
+            <div class="setting-icon blue-icon">
+              <i class="bx bxs-bank"></i>
+            </div>
+            <div class="field-content">
+              <label>Bank Transfer</label>
+              <input type="text" value="FNB / Absa / Stanbic" readonly />
+            </div>
+            <i class="bx bx-chevron-right"></i>
+          </div>
+
+          <div class="luxury-field">
+            <div class="setting-icon"><i class="bx bxl-apple"></i></div>
+            <div class="field-content">
+              <label>Express Digital</label>
+              <input type="text" value="Apple Pay" readonly />
+            </div>
+            <i class="bx bx-chevron-right"></i>
+          </div>
+        </div>
+
+        <div class="trust-panel payment-footer">
+          <div class="trust-item">
+            <i class="bx bxs-lock-alt"></i>
+            <div>
+              <strong>Bank-Grade Security</strong>
+              <p>Your data is encrypted with AES-256 protocol.</p>
+            </div>
+          </div>
+        </div>
+
+        <button class="execute-btn">Update Preferences</button>
+      </div>
+    </div>
+    <div class="modal-overlay" id="modal-overlay">
+      <div class="bottom-sheet" id="bottom-sheet">
+        <div class="sheet-handle"></div>
+
+        <div class="sheet-header">
+          <div class="momo-logo-small" id="modal-provider-logo"></div>
+          <h2 id="modal-title"></h2>
+          <p id="modal-subtitle">
+            Enter your details to authorize secure payments.
+          </p>
+        </div>
+
+        <div class="sheet-body" id="modal-form-body">
+          <div class="luxury-field">
+            <div class="field-content">
+              <label>Mobile Number</label>
+              <div class="momo-input-wrapper">
+                <div class="prefix-selector">
+                  <select id="carrier-prefix-dropdown"></select>
+                  <i class="bx bx-chevron-down"></i>
+                </div>
+                <input
+                  type="tel"
+                  id="momo-number"
+                  placeholder="1234567"
+                  maxlength="7"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="luxury-field">
+            <div class="field-content">
+              <label>Account Name</label>
+              <input type="text" id="momo-name" placeholder="Full Name" />
+            </div>
+          </div>
+
+          <button class="execute-btn" id="confirm-momo">Link Account</button>
+          <button class="remove-btn" id="remove-momo" style="display: none">
+            Remove Account
+          </button>
+          <button class="cancel-btn" id="close-modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="card-modal-overlay">
+      <div class="bottom-sheet">
+        <div class="sheet-handle"></div>
+        <div class="sheet-header">
+          <div class="momo-logo-small" style="background: var(--a)">
+            <i class="bx bxs-credit-card"></i>
+          </div>
+          <h2>Link Card</h2>
+          <p>Add a Visa or Mastercard for secure payments.</p>
+        </div>
+
+        <div class="sheet-body" id="card-form-body">
+          <div class="luxury-field">
+            <div class="field-content">
+              <label>Card Number</label>
+              <input
+                type="tel"
+                id="card-num-input"
+                placeholder="0000 0000 0000 0000"
+                maxlength="19"
+              />
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px">
+            <div class="luxury-field">
+              <div class="field-content">
+                <label>Expiry Date</label>
+                <input
+                  type="text"
+                  id="card-exp-input"
+                  placeholder="MM/YY"
+                  maxlength="5"
+                />
+              </div>
+            </div>
+            <div class="luxury-field">
+              <div class="field-content">
+                <label>CVV</label>
+                <input
+                  type="password"
+                  id="card-cvv-input"
+                  placeholder="***"
+                  maxlength="3"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button class="execute-btn" id="confirm-card">Link Card</button>
+          <button class="remove-btn" id="remove-card" style="display: none">
+            Remove Card
+          </button>
+          <button class="cancel-btn" id="close-card-modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="info-modal-overlay">
+      <div class="bottom-sheet">
+        <div class="sheet-handle"></div>
+        <div class="sheet-header">
+          <div class="momo-logo-small" style="background: #3b82f6">
+            <i class="bx bxs-bank"></i>
+          </div>
+          <h2 id="info-modal-title">Bank Details</h2>
+          <p id="info-modal-subtitle">
+            Transfer funds directly to our account.
+          </p>
+        </div>
+
+        <div class="sheet-body">
+          <div
+            class="premium-card"
+            style="margin-bottom: 20px; background: rgba(0, 0, 0, 0.05)"
+          >
+            <div class="luxury-field" onclick="copyText('5789012234')">
+              <div class="field-content">
+                <label>Account Number (FNB)</label>
+                <strong>6284 9901 223</strong>
+              </div>
+              <i class="bx bx-copy-alt"></i>
+            </div>
+            <div class="luxury-field">
+              <div class="field-content">
+                <label>Branch Code</label>
+                <strong>250655</strong>
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size: 11px; opacity: 0.6; text-align: center">
+            Please use your <b>Phone Number</b> as the payment reference.
+          </p>
+
+          <button class="execute-btn" id="close-info-modal">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/global.js"></script>
+    <script src="js/payments.js"></script>
+    <script type="module" src="js/maintenance-check.js"></script>
+  </body>
+</html>

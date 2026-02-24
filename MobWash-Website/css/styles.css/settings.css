@@ -1,0 +1,241 @@
+/* --- SETTINGS SPECIFIC STYLES --- */
+
+.settings-header {
+  padding: 40px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* --- ADDRESS & HISTORY ENHANCEMENTS --- */
+
+/* Ensures links inside groups inherit the correct text color */
+.settings-group a.setting-item {
+  color: inherit;
+  display: flex;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.settings-group a.setting-item:hover {
+  background: rgba(14, 165, 233, 0.05);
+}
+
+/* Style for the edit/chevron icons on the right */
+.setting-item > i {
+  font-size: 1.2rem;
+  color: var(--text-main);
+  opacity: 0.3;
+}
+
+/* If a specific action icon is needed (like the edit button) */
+.bx-edit-alt:hover {
+  color: var(--a);
+  opacity: 1 !important;
+  transition: 0.3s;
+}
+
+.glass-back {
+  width: 42px;
+  height: 42px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 22px;
+}
+
+.header-title h1 {
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin: 0;
+  color: var(--text-main);
+}
+
+.header-title p {
+  font-size: 0.9rem;
+  opacity: 0.6;
+  margin: 4px 0 0;
+}
+
+/* --- SETTINGS GROUPS (UPDATED TO SEPARATE CARDS) --- */
+.settings-container {
+  padding: 0 24px 100px;
+}
+
+.settings-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--a);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin: 25px 0 12px 5px;
+}
+
+.settings-group {
+  background: transparent; /* Removed background to separate items */
+  border: none; /* Removed group border */
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Adds spacing between the cards */
+  margin-bottom: 20px;
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  padding: 18px;
+  gap: 15px;
+  background: var(--card-bg); /* Added background to individual item */
+  border: 1px solid var(--border-color); /* Added border to individual item */
+  border-radius: 20px; /* Rounded each individual item */
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* Removed border-bottom logic as items are now separate cards */
+.setting-item:last-child {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.setting-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--bg-global);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--a);
+}
+
+.setting-info {
+  flex: 1;
+}
+
+.setting-info label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 2px;
+}
+
+.setting-info input {
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 1rem;
+  width: 100%;
+  outline: none;
+}
+
+.setting-info strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.setting-info span {
+  font-size: 0.8rem;
+  opacity: 0.5;
+}
+
+/* Gold Icon Specifics for Notifications */
+.gold-icon {
+  color: #fbbf24 !important;
+}
+
+/* --- TOGGLE SWITCH --- */
+/* --- THE EXECUTIVE TOGGLE ENGINE --- */
+
+/* The Button Container */
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  outline: none;
+}
+
+/* The Track */
+.toggle-track {
+  width: 48px;
+  height: 24px;
+  background: #cbd5e1; /* Default Off State */
+  border-radius: 50px;
+  position: relative;
+  transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* The Thumb */
+.toggle-thumb {
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+/* --- THE ACTIVE STATE (Triggered by JS .active class) --- */
+
+/* When the button has .active, move the thumb inside it */
+#theme-toggle.active .toggle-track {
+  background: var(--a); /* Mobwash Blue or Orange */
+}
+
+#theme-toggle.active .toggle-thumb {
+  transform: translateX(24px); /* Slides to the right */
+}
+
+/* Dark Mode specific track adjustment when toggle is OFF */
+[data-theme="dark"] .toggle-track {
+  background: #334155;
+}
+/*
+
+/* --- CLICKABLE SETTINGS ITEMS & HOVERS --- */
+.clickable-setting {
+  display: flex;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.setting-item:hover {
+  transform: translateX(4px);
+  border-color: var(--logo-secondary);
+  background: rgba(14, 165, 233, 0.05);
+}
+
+.setting-item:active {
+  transform: scale(0.98);
+}
+
+.settings-action i {
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  opacity: 0.5;
+  transition: 0.3s;
+}
+
+.setting-item:hover .settings-action i {
+  opacity: 1;
+  color: var(--logo-secondary);
+}

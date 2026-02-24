@@ -1,0 +1,1211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MobWash PRO | Executive Command</title>
+
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+
+    <style>
+      a.stat-card {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        cursor: pointer;
+      }
+
+      /* Back button hidden by default, shown on dynamic pages */
+      #nav-back-btn {
+        display: none;
+        margin-bottom: 14px;
+      }
+      body.dynamic-page #nav-back-btn {
+        display: inline-flex;
+      }
+
+      /* Small helper styling for inline “tabs/links” inside pages */
+      .mw-link {
+        color: var(--accent-blue);
+        cursor: pointer;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .mw-link:hover {
+        opacity: 0.85;
+      }
+
+      .mw-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.04);
+        cursor: pointer;
+        color: white;
+        font-weight: 800;
+      }
+      .mw-pill:hover {
+        border-color: var(--accent-blue);
+        background: rgba(14, 165, 233, 0.08);
+      }
+
+      .mw-subheader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin: 10px 0 18px;
+        flex-wrap: wrap;
+      }
+
+      .mw-breadcrumb {
+        font-size: 12px;
+        color: var(--text-dim);
+      }
+      .mw-breadcrumb b {
+        color: white;
+      }
+
+      /* Tabs row used in Orders */
+      .mw-tabs {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 25px;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 10px;
+        flex-wrap: wrap;
+      }
+      .mw-tab {
+        color: var(--text-dim);
+        cursor: pointer;
+        font-weight: 600;
+        text-decoration: none;
+        padding-bottom: 10px;
+      }
+      .mw-tab.active {
+        color: var(--accent-blue);
+        border-bottom: 2px solid var(--accent-blue);
+        font-weight: 800;
+      }
+
+      /* Settings grid responsive */
+      @media (max-width: 768px) {
+        .settings-grid {
+          grid-template-columns: 1fr !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="dark-theme">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header" id="sidebar-toggle">
+        <i class="bx bxs-washer logo-icon"></i>
+        <span class="brand-text"
+          >MobWash <span style="color: #fb923c">PRO</span></span
+        >
+      </div>
+
+      <div class="search-container">
+        <div class="search-wrapper">
+          <i class="bx bx-search"></i>
+          <input type="text" id="global-search" placeholder="Search..." />
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="dashboard.html" data-page="overview" class="active">
+          <i class="bx bxs-dashboard"></i><span>Overview</span>
+        </a>
+        <a href="dashboard.html?page=orders" data-page="orders">
+          <i class="bx bxs-package"></i><span>Orders</span>
+        </a>
+        <a href="dashboard.html?page=users" data-page="users">
+          <i class="bx bxs-user-detail"></i><span>Customers</span>
+        </a>
+        <a href="dashboard.html?page=subscriptions" data-page="subscriptions">
+          <i class="bx bxs-crown"></i><span>Subscriptions</span>
+        </a>
+        <a href="dashboard.html?page=finance" data-page="finance">
+          <i class="bx bxs-bank"></i><span>Finance</span>
+        </a>
+        <a href="dashboard.html?page=settings" data-page="settings">
+          <i class="bx bxs-cog"></i><span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer" id="admin-logout">
+        <i class="bx bx-log-out"></i><span>Logout</span>
+      </div>
+    </aside>
+
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <main class="main-content" id="main-content">
+      <!-- Back button (for dynamic pages) -->
+      <button
+        id="nav-back-btn"
+        class="back-btn"
+        type="button"
+        aria-label="Go back"
+      >
+        <i class="bx bx-arrow-back"></i>
+      </button>
+
+      <!-- Dynamic content mount -->
+      <div id="dynamic-content">
+        <!-- DEFAULT: Dashboard Overview content -->
+        <header class="executive-header">
+          <div class="header-left">
+            <button id="mobile-menu-btn" class="mobile-menu-btn">
+              <i class="bx bx-menu-alt-left"></i>
+            </button>
+            <h2 id="page-title">Executive Dashboard</h2>
+            <p id="live-clock">--:--:-- | SECURE SESSION</p>
+          </div>
+
+          <div class="header-right">
+            <div class="maintenance-control">
+              <span id="system-status-label">System Online</span>
+              <label class="switch">
+                <input type="checkbox" id="maintenance-toggle" />
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+        </header>
+
+        <div class="stats-grid" id="stats-grid">
+          <a
+            href="dashboard.html?page=users"
+            data-page="users"
+            class="stat-card"
+          >
+            <h4>Total Users</h4>
+            <p id="total-users">0</p>
+            <i class="bx bxs-user-detail stat-icon"></i>
+          </a>
+
+          <a
+            href="dashboard.html?page=orders"
+            data-page="orders"
+            class="stat-card"
+          >
+            <h4>Active Orders</h4>
+            <p id="total-orders-count">0</p>
+            <i class="bx bxs-package stat-icon"></i>
+          </a>
+
+          <a
+            href="dashboard.html?page=subscriptions"
+            data-page="subscriptions"
+            class="stat-card"
+          >
+            <h4>Active Subs</h4>
+            <p id="active-subs">0</p>
+            <i class="bx bxs-crown stat-icon"></i>
+          </a>
+
+          <a
+            href="dashboard.html?page=finance"
+            data-page="finance"
+            class="stat-card"
+            style="border-color: #fb923c"
+          >
+            <h4>Revenue</h4>
+            <p id="monthly-revenue">K0</p>
+            <i class="bx bxs-bank stat-icon"></i>
+          </a>
+        </div>
+
+        <div class="chart-container" id="revenue-panel">
+          <h3>Revenue Intelligence</h3>
+          <div class="chart-wrapper" style="height: 300px">
+            <canvas id="revenueChart"></canvas>
+          </div>
+        </div>
+
+        <div class="management-grid" id="orders-panel">
+          <section class="table-section">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 15px;
+              "
+            >
+              <h3>Order Stream</h3>
+              <button id="export-btn" class="export-btn">
+                <i class="bx bxs-download"></i> Export CSV
+              </button>
+            </div>
+
+            <div class="table-card">
+              <table>
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Plan</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="orders-body"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+
+        <section
+          class="dashboard-section"
+          id="logs-panel"
+          style="margin-top: 40px"
+        >
+          <h3>System Activity Logs</h3>
+          <div class="log-card">
+            <div class="log-header">
+              <span><i class="bx bx-terminal"></i> Live Audit Trail</span>
+              <span style="color: #10b981">SECURE</span>
+            </div>
+            <div class="log-container" id="audit-logs">
+              <div class="log-entry">Initializing system logs...</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Router -->
+    <script>
+      (function () {
+        const mount = document.getElementById("dynamic-content");
+        const pageTitle = document.getElementById("page-title");
+        const backBtn = document.getElementById("nav-back-btn");
+
+        const getPage = () =>
+          (
+            new URLSearchParams(location.search).get("page") || "overview"
+          ).trim();
+
+        // Save Overview HTML as template (so your existing dashboard.js still finds its IDs on overview)
+        const OVERVIEW_HTML = mount ? mount.innerHTML : "";
+
+        // Small helper to navigate
+        const go = (page) => {
+          const url =
+            page === "overview"
+              ? "dashboard.html"
+              : `dashboard.html?page=${encodeURIComponent(page)}`;
+          history.pushState({ page }, "", url);
+          render(page);
+        };
+
+        const applyActiveLink = (page) => {
+          const top = (page.split("/")[0] || "overview").toLowerCase();
+          document.querySelectorAll(".nav-menu a").forEach((a) => {
+            const p = (a.getAttribute("data-page") || "").toLowerCase();
+            if (!p) return;
+            a.classList.toggle("active", p === top);
+          });
+        };
+
+        const setTitle = (page) => {
+          const top = (page.split("/")[0] || "overview").toLowerCase();
+          const titleMap = {
+            overview: "Executive Dashboard",
+            orders: "Order Management",
+            users: "Customer Database",
+            subscriptions: "Subscription Manager",
+            finance: "Financial Overview",
+            settings: "System Settings",
+          };
+
+          if (pageTitle)
+            pageTitle.textContent = titleMap[top] || "Executive Dashboard";
+          document.title = `MobWash PRO | ${titleMap[top] || "Executive Command"}`;
+        };
+
+        // ===== Helpers to generate consistent pages =====
+        const ordersShell = (activeKey) => `
+          <div class="mw-breadcrumb">Dashboard / <b>Orders</b></div>
+
+          <header class="executive-header">
+            <div class="header-left">
+              <h2>Order Management</h2>
+              <p id="live-clock">LIVE DATA FEED</p>
+            </div>
+            <div class="header-right">
+              <button class="mw-pill" type="button" data-page="orders/new">
+                <i class="bx bx-plus"></i> New Order
+              </button>
+            </div>
+          </header>
+
+          <div class="mw-tabs">
+            <a class="mw-tab ${activeKey === "all" ? "active" : ""}" data-page="orders">All Orders</a>
+            <a class="mw-tab ${activeKey === "pending" ? "active" : ""}" data-page="orders/pending">Pending</a>
+            <a class="mw-tab ${activeKey === "completed" ? "active" : ""}" data-page="orders/completed">Completed</a>
+            <a class="mw-tab ${activeKey === "cancelled" ? "active" : ""}" data-page="orders/cancelled">Cancelled</a>
+          </div>
+        `;
+
+        const ordersTable = (mode) => {
+          // mode: all | pending | completed | cancelled
+          const rowsAll = [
+            {
+              id: "MW-8821",
+              customer: "John Doe",
+              service: "Premium Wash",
+              date: "Oct 24, 2024",
+              amount: "K150.00",
+              status: "COMPLETED",
+              statusStyle:
+                "background: rgba(16, 185, 129, 0.2); color:#10b981;",
+            },
+            {
+              id: "MW-8822",
+              customer: "Sarah Smith",
+              service: "Interior Detail",
+              date: "Oct 24, 2024",
+              amount: "K300.00",
+              status: "IN PROGRESS",
+              statusStyle:
+                "background: rgba(251, 146, 60, 0.2); color:#fb923c;",
+            },
+            {
+              id: "MW-8823",
+              customer: "Kelvin Phiri",
+              service: "Standard Wash",
+              date: "Oct 23, 2024",
+              amount: "K90.00",
+              status: "PENDING",
+              statusStyle:
+                "background: rgba(14, 165, 233, 0.15); color: var(--accent-blue);",
+            },
+            {
+              id: "MW-8824",
+              customer: "Esther Banda",
+              service: "Premium Wash",
+              date: "Oct 22, 2024",
+              amount: "K150.00",
+              status: "CANCELLED",
+              statusStyle:
+                "background: rgba(239, 68, 68, 0.15); color:#ef4444;",
+            },
+          ];
+
+          const pick = (r) => {
+            if (mode === "all") return true;
+            if (mode === "pending")
+              return r.status === "PENDING" || r.status === "IN PROGRESS";
+            if (mode === "completed") return r.status === "COMPLETED";
+            if (mode === "cancelled") return r.status === "CANCELLED";
+            return true;
+          };
+
+          const rows = rowsAll.filter(pick);
+
+          const rowHtml = rows
+            .map(
+              (r) => `
+              <tr>
+                <td><a class="mw-link" data-page="orders/view/${r.id}">#${r.id}</a></td>
+                <td style="display:flex; align-items:center; gap:10px;">
+                  <div style="width:25px;height:25px;background:#334155;border-radius:50%;"></div>
+                  ${r.customer}
+                </td>
+                <td>${r.service}</td>
+                <td>${r.date}</td>
+                <td>${r.amount}</td>
+                <td>
+                  <span style="${r.statusStyle} padding:4px 8px; border-radius:6px; font-size:11px; font-weight:700;">
+                    ${r.status}
+                  </span>
+                </td>
+                <td><i class="bx bx-dots-horizontal-rounded" style="cursor:pointer; font-size:20px"></i></td>
+              </tr>
+            `,
+            )
+            .join("");
+
+          return `
+            <div class="table-card">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Service</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${rowHtml || `<tr><td colspan="7" style="color: var(--text-dim); padding: 18px;">No orders in this view.</td></tr>`}
+                </tbody>
+              </table>
+            </div>
+          `;
+        };
+
+        const financeShell = () => `
+          <div class="mw-breadcrumb">Dashboard / <b>Finance</b></div>
+
+          <header class="executive-header">
+            <div class="header-left">
+              <h2>Financial Overview</h2>
+            </div>
+            <button class="mw-pill" type="button" data-page="finance/report">
+              <i class="bx bxs-download"></i> Download Report
+            </button>
+          </header>
+
+          <div class="stats-grid">
+            <div class="stat-card" style="cursor:pointer;" data-page="finance/revenue">
+              <h4>Gross Revenue (Monthly)</h4>
+              <p style="color: #10b981">K45,200</p>
+            </div>
+            <div class="stat-card" style="cursor:pointer;" data-page="finance/payouts">
+              <h4>Pending Payouts</h4>
+              <p style="color: #fb923c">K1,200</p>
+            </div>
+            <div class="stat-card" style="cursor:pointer;" data-page="finance/refunds">
+              <h4>Refunds</h4>
+              <p style="color: #ef4444">K150</p>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <h3>Transaction History</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Source</th>
+                  <th>Date</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a class="mw-link" data-page="finance/txn/TRX-990">#TRX-990</a></td>
+                  <td>Subscription (Gold)</td>
+                  <td>Today, 10:45 AM</td>
+                  <td>K500.00</td>
+                  <td><span style="color: #10b981">SUCCESS</span></td>
+                </tr>
+                <tr>
+                  <td><a class="mw-link" data-page="finance/txn/TRX-989">#TRX-989</a></td>
+                  <td>Service: Wash & Wax</td>
+                  <td>Yesterday, 4:20 PM</td>
+                  <td>K250.00</td>
+                  <td><span style="color: #10b981">SUCCESS</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        `;
+
+        const financeDetail = (title, note, rows) => `
+          <div class="mw-breadcrumb">Dashboard / Finance / <b>${title}</b></div>
+          <header class="executive-header"><h2>${title}</h2></header>
+
+          <div class="table-card">
+            <p style="color: var(--text-dim); margin-top: 0;">${note}</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Period</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rows}
+              </tbody>
+            </table>
+          </div>
+        `;
+
+        // ===== Templates =====
+        const TEMPLATES = {
+          overview: OVERVIEW_HTML,
+
+          // ORDERS
+          orders: `${ordersShell("all")}${ordersTable("all")}`,
+          "orders/pending": `${ordersShell("pending")}${ordersTable("pending")}`,
+          "orders/completed": `${ordersShell("completed")}${ordersTable("completed")}`,
+          "orders/cancelled": `${ordersShell("cancelled")}${ordersTable("cancelled")}`,
+
+          "orders/new": `
+            <div class="mw-breadcrumb">Dashboard / Orders / <b>New</b></div>
+
+            <header class="executive-header">
+              <h2>Create New Order</h2>
+            </header>
+
+            <div class="table-card">
+              <div style="display:grid; gap: 14px;">
+                <div>
+                  <label style="display:block; color:var(--text-dim); font-size:12px; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">Customer Name</label>
+                  <input type="text" placeholder="e.g. John Doe" style="width:100%; background:#020617; border:1px solid var(--border); padding:12px; border-radius:12px; color:white; outline:none;" />
+                </div>
+                <div>
+                  <label style="display:block; color:var(--text-dim); font-size:12px; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">Service</label>
+                  <input type="text" placeholder="e.g. Premium Wash" style="width:100%; background:#020617; border:1px solid var(--border); padding:12px; border-radius:12px; color:white; outline:none;" />
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                  <div>
+                    <label style="display:block; color:var(--text-dim); font-size:12px; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">Amount</label>
+                    <input type="text" placeholder="K150" style="width:100%; background:#020617; border:1px solid var(--border); padding:12px; border-radius:12px; color:white; outline:none;" />
+                  </div>
+                  <div>
+                    <label style="display:block; color:var(--text-dim); font-size:12px; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">Status</label>
+                    <select style="width:100%; background:#020617; border:1px solid var(--border); padding:12px; border-radius:12px; color:white; outline:none;">
+                      <option>pending</option>
+                      <option>in progress</option>
+                      <option>completed</option>
+                      <option>cancelled</option>
+                    </select>
+                  </div>
+                </div>
+
+                <button class="complete-btn" style="width:100%; padding:15px; font-size:14px;">
+                  Save Order
+                </button>
+              </div>
+            </div>
+          `,
+
+          // Order detail pages
+          "orders/view/MW-8821": `
+            <div class="mw-breadcrumb">Dashboard / Orders / <b>#MW-8821</b></div>
+            <header class="executive-header"><h2>Order Details: #MW-8821</h2></header>
+            <div class="table-card">
+              <h3>Summary</h3>
+              <table>
+                <tbody>
+                  <tr><td style="color:white; font-weight:800;">Customer</td><td>John Doe</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Service</td><td>Premium Wash</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Amount</td><td>K150.00</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Status</td><td style="color:#10b981; font-weight:800;">COMPLETED</td></tr>
+                </tbody>
+              </table>
+            </div>
+          `,
+          "orders/view/MW-8822": `
+            <div class="mw-breadcrumb">Dashboard / Orders / <b>#MW-8822</b></div>
+            <header class="executive-header"><h2>Order Details: #MW-8822</h2></header>
+            <div class="table-card">
+              <h3>Summary</h3>
+              <table>
+                <tbody>
+                  <tr><td style="color:white; font-weight:800;">Customer</td><td>Sarah Smith</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Service</td><td>Interior Detail</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Amount</td><td>K300.00</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Status</td><td style="color:#fb923c; font-weight:800;">IN PROGRESS</td></tr>
+                </tbody>
+              </table>
+            </div>
+          `,
+          "orders/view/MW-8823": `
+            <div class="mw-breadcrumb">Dashboard / Orders / <b>#MW-8823</b></div>
+            <header class="executive-header"><h2>Order Details: #MW-8823</h2></header>
+            <div class="table-card">
+              <h3>Summary</h3>
+              <table>
+                <tbody>
+                  <tr><td style="color:white; font-weight:800;">Customer</td><td>Kelvin Phiri</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Service</td><td>Standard Wash</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Amount</td><td>K90.00</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Status</td><td style="color:var(--accent-blue); font-weight:800;">PENDING</td></tr>
+                </tbody>
+              </table>
+            </div>
+          `,
+          "orders/view/MW-8824": `
+            <div class="mw-breadcrumb">Dashboard / Orders / <b>#MW-8824</b></div>
+            <header class="executive-header"><h2>Order Details: #MW-8824</h2></header>
+            <div class="table-card">
+              <h3>Summary</h3>
+              <table>
+                <tbody>
+                  <tr><td style="color:white; font-weight:800;">Customer</td><td>Esther Banda</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Service</td><td>Premium Wash</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Amount</td><td>K150.00</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Status</td><td style="color:#ef4444; font-weight:800;">CANCELLED</td></tr>
+                </tbody>
+              </table>
+            </div>
+          `,
+
+          // USERS
+          users: `
+            <div class="mw-breadcrumb">Dashboard / <b>Customers</b></div>
+
+            <header class="executive-header">
+              <div class="header-left">
+                <h2>Customer Database</h2>
+              </div>
+              <div class="header-right">
+                <input
+                  type="text"
+                  placeholder="Search users..."
+                  style="
+                    background: rgba(255, 255, 255, 0.05);
+                    border: 1px solid var(--border);
+                    padding: 10px;
+                    border-radius: 12px;
+                    color: white;
+                  "
+                />
+              </div>
+            </header>
+
+            <div class="mw-subheader">
+              <button class="mw-pill" type="button" data-page="users/list">
+                <i class="bx bx-list-ul"></i> View Full List
+              </button>
+              <button class="mw-pill" type="button" data-page="users/new">
+                <i class="bx bx-user-plus"></i> Add Customer
+              </button>
+            </div>
+
+            <div class="table-card">
+              <table>
+                <thead>
+                  <tr>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Joined</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <i class="bx bxs-user-circle" style="color: var(--accent-blue)"></i>
+                      Alice Mumba
+                    </td>
+                    <td>alice@example.com</td>
+                    <td>Oct 20, 2024</td>
+                    <td><span style="color: #10b981; font-weight: 700">ACTIVE</span></td>
+                    <td>
+                      <button class="complete-btn" style="padding: 5px 10px" data-page="users/view/alice">
+                        View
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <i class="bx bxs-user-circle" style="color: var(--text-dim)"></i>
+                      John Banda
+                    </td>
+                    <td>john@example.com</td>
+                    <td>Sep 15, 2024</td>
+                    <td><span style="color: #ef4444; font-weight: 700">BANNED</span></td>
+                    <td>
+                      <button class="complete-btn" style="padding: 5px 10px; background: #334155" data-page="users/view/john">
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          `,
+
+          "users/list": `
+            <div class="mw-breadcrumb">Dashboard / Customers / <b>All Customers</b></div>
+            <header class="executive-header">
+              <h2>All Customers</h2>
+            </header>
+
+            <div class="table-card">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Profile</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Alice Mumba</td>
+                    <td>alice@example.com</td>
+                    <td style="color:#10b981; font-weight:800;">ACTIVE</td>
+                    <td><a class="mw-link" data-page="users/view/alice">Open</a></td>
+                  </tr>
+                  <tr>
+                    <td>John Banda</td>
+                    <td>john@example.com</td>
+                    <td style="color:#ef4444; font-weight:800;">BANNED</td>
+                    <td><a class="mw-link" data-page="users/view/john">Open</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          `,
+
+          "users/new": `
+            <div class="mw-breadcrumb">Dashboard / Customers / <b>Add New</b></div>
+            <header class="executive-header">
+              <h2>Add Customer</h2>
+            </header>
+
+            <div class="table-card">
+              <div style="display:grid; gap: 14px;">
+                <div>
+                  <label style="display:block; color:var(--text-dim); font-size:12px; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">Full Name</label>
+                  <input type="text" placeholder="Customer name" style="width:100%; background:#020617; border:1px solid var(--border); padding:12px; border-radius:12px; color:white; outline:none;" />
+                </div>
+                <div>
+                  <label style="display:block; color:var(--text-dim); font-size:12px; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">Email</label>
+                  <input type="email" placeholder="name@email.com" style="width:100%; background:#020617; border:1px solid var(--border); padding:12px; border-radius:12px; color:white; outline:none;" />
+                </div>
+                <button class="complete-btn" style="width:100%; padding:15px; font-size:14px;">
+                  Save Customer
+                </button>
+              </div>
+            </div>
+          `,
+
+          "users/view/alice": `
+            <div class="mw-breadcrumb">Dashboard / Customers / <b>Alice Mumba</b></div>
+            <header class="executive-header"><h2>Customer Profile</h2></header>
+
+            <div class="table-card">
+              <h3>Profile</h3>
+              <table>
+                <tbody>
+                  <tr><td style="color:white; font-weight:800;">Name</td><td>Alice Mumba</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Email</td><td>alice@example.com</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Status</td><td style="color:#10b981; font-weight:800;">ACTIVE</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Joined</td><td>Oct 20, 2024</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="mw-subheader">
+              <button class="mw-pill" type="button" data-page="orders">
+                <i class="bx bxs-package"></i> View Orders
+              </button>
+              <button class="mw-pill" type="button" data-page="subscriptions/gold">
+                <i class="bx bxs-crown"></i> View Subscription Tier
+              </button>
+            </div>
+          `,
+
+          "users/view/john": `
+            <div class="mw-breadcrumb">Dashboard / Customers / <b>John Banda</b></div>
+            <header class="executive-header"><h2>Customer Profile</h2></header>
+
+            <div class="table-card">
+              <h3>Profile</h3>
+              <table>
+                <tbody>
+                  <tr><td style="color:white; font-weight:800;">Name</td><td>John Banda</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Email</td><td>john@example.com</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Status</td><td style="color:#ef4444; font-weight:800;">BANNED</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Joined</td><td>Sep 15, 2024</td></tr>
+                </tbody>
+              </table>
+            </div>
+          `,
+
+          // SUBSCRIPTIONS
+          subscriptions: `
+            <div class="mw-breadcrumb">Dashboard / <b>Subscriptions</b></div>
+
+            <header class="executive-header">
+              <h2>Subscription Manager</h2>
+            </header>
+
+            <div class="stats-grid">
+              <div class="stat-card" style="border-color: #ffd700; cursor:pointer;" data-page="subscriptions/gold">
+                <h4 style="color: #ffd700">Gold Members</h4>
+                <p>120</p>
+              </div>
+              <div class="stat-card" style="border-color: #c0c0c0; cursor:pointer;" data-page="subscriptions/silver">
+                <h4 style="color: #c0c0c0">Silver Members</h4>
+                <p>450</p>
+              </div>
+              <div class="stat-card" style="border-color: #cd7f32; cursor:pointer;" data-page="subscriptions/bronze">
+                <h4 style="color: #cd7f32">Bronze Members</h4>
+                <p>320</p>
+              </div>
+            </div>
+
+            <div class="table-card">
+              <h3>Recent Renewals</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Subscriber</th>
+                    <th>Plan</th>
+                    <th>Renewal Date</th>
+                    <th>Auto-Renew</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><a class="mw-link" data-page="users/view/alice">Peter Chibwe</a></td>
+                    <td><span style="color: #ffd700; font-weight: 800">GOLD</span></td>
+                    <td>Nov 01, 2024</td>
+                    <td>YES</td>
+                  </tr>
+                  <tr>
+                    <td><a class="mw-link" data-page="users/view/john">Sarah L.</a></td>
+                    <td><span style="color: #c0c0c0; font-weight: 800">SILVER</span></td>
+                    <td>Oct 29, 2024</td>
+                    <td>NO</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          `,
+
+          "subscriptions/gold": `
+            <div class="mw-breadcrumb">Dashboard / Subscriptions / <b>Gold Members</b></div>
+            <header class="executive-header"><h2>Gold Members</h2></header>
+
+            <div class="table-card">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Member</th>
+                    <th>Email</th>
+                    <th>Renewal</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Peter Chibwe</td><td>peter@example.com</td><td>Nov 01, 2024</td><td style="color:#10b981; font-weight:800;">ACTIVE</td></tr>
+                  <tr><td>Grace Mwila</td><td>grace@example.com</td><td>Oct 28, 2024</td><td style="color:#10b981; font-weight:800;">ACTIVE</td></tr>
+                </tbody>
+              </table>
+            </div>
+          `,
+
+          "subscriptions/silver": `
+            <div class="mw-breadcrumb">Dashboard / Subscriptions / <b>Silver Members</b></div>
+            <header class="executive-header"><h2>Silver Members</h2></header>
+
+            <div class="table-card">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Member</th>
+                    <th>Email</th>
+                    <th>Renewal</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Sarah L.</td><td>sarah@example.com</td><td>Oct 29, 2024</td><td style="color:#10b981; font-weight:800;">ACTIVE</td></tr>
+                  <tr><td>Daniel Tembo</td><td>daniel@example.com</td><td>Oct 18, 2024</td><td style="color:#fb923c; font-weight:800;">PENDING</td></tr>
+                </tbody>
+              </table>
+            </div>
+          `,
+
+          "subscriptions/bronze": `
+            <div class="mw-breadcrumb">Dashboard / Subscriptions / <b>Bronze Members</b></div>
+            <header class="executive-header"><h2>Bronze Members</h2></header>
+
+            <div class="table-card">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Member</th>
+                    <th>Email</th>
+                    <th>Renewal</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Kelvin Phiri</td><td>kelvin@example.com</td><td>Oct 05, 2024</td><td style="color:#10b981; font-weight:800;">ACTIVE</td></tr>
+                  <tr><td>Esther Banda</td><td>esther@example.com</td><td>Sep 29, 2024</td><td style="color:#ef4444; font-weight:800;">EXPIRED</td></tr>
+                </tbody>
+              </table>
+            </div>
+          `,
+
+          // FINANCE (home + subpages)
+          finance: financeShell(),
+
+          "finance/revenue": financeDetail(
+            "Gross Revenue",
+            "Monthly revenue totals by stream (placeholder data for now).",
+            `
+              <tr><td>Subscriptions</td><td>This Month</td><td style="color:#10b981; font-weight:800;">K22,000</td><td>Settled</td></tr>
+              <tr><td>One-time Services</td><td>This Month</td><td style="color:#10b981; font-weight:800;">K18,700</td><td>Settled</td></tr>
+              <tr><td>Other</td><td>This Month</td><td style="color:#10b981; font-weight:800;">K4,500</td><td>Settled</td></tr>
+            `,
+          ),
+
+          "finance/payouts": financeDetail(
+            "Pending Payouts",
+            "Amounts waiting to be disbursed (placeholder).",
+            `
+              <tr><td>Driver Payouts</td><td>This Week</td><td style="color:#fb923c; font-weight:800;">K800</td><td>PENDING</td></tr>
+              <tr><td>Supplier</td><td>This Week</td><td style="color:#fb923c; font-weight:800;">K400</td><td>PENDING</td></tr>
+            `,
+          ),
+
+          "finance/refunds": financeDetail(
+            "Refunds",
+            "Refund cases in the current month (placeholder).",
+            `
+              <tr><td>Order #MW-8809</td><td>Oct</td><td style="color:#ef4444; font-weight:800;">K90</td><td>REFUNDED</td></tr>
+              <tr><td>Order #MW-8815</td><td>Oct</td><td style="color:#ef4444; font-weight:800;">K60</td><td>REFUNDED</td></tr>
+            `,
+          ),
+
+          "finance/report": `
+            <div class="mw-breadcrumb">Dashboard / Finance / <b>Report</b></div>
+            <header class="executive-header"><h2>Download Report</h2></header>
+
+            <div class="table-card">
+              <p style="color: var(--text-dim); margin-top: 0;">
+                Report center (placeholder). Later you can connect this to PDF/CSV export.
+              </p>
+              <button class="complete-btn" style="width:100%; padding: 15px; font-size:14px;">
+                Generate Report (Coming Soon)
+              </button>
+            </div>
+          `,
+
+          "finance/txn/TRX-990": `
+            <div class="mw-breadcrumb">Dashboard / Finance / <b>#TRX-990</b></div>
+            <header class="executive-header"><h2>Transaction Details</h2></header>
+            <div class="table-card">
+              <table>
+                <tbody>
+                  <tr><td style="color:white; font-weight:800;">ID</td><td>#TRX-990</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Source</td><td>Subscription (Gold)</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Amount</td><td>K500.00</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Status</td><td style="color:#10b981; font-weight:800;">SUCCESS</td></tr>
+                </tbody>
+              </table>
+            </div>
+          `,
+
+          "finance/txn/TRX-989": `
+            <div class="mw-breadcrumb">Dashboard / Finance / <b>#TRX-989</b></div>
+            <header class="executive-header"><h2>Transaction Details</h2></header>
+            <div class="table-card">
+              <table>
+                <tbody>
+                  <tr><td style="color:white; font-weight:800;">ID</td><td>#TRX-989</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Source</td><td>Service: Wash & Wax</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Amount</td><td>K250.00</td></tr>
+                  <tr><td style="color:white; font-weight:800;">Status</td><td style="color:#10b981; font-weight:800;">SUCCESS</td></tr>
+                </tbody>
+              </table>
+            </div>
+          `,
+
+          // SETTINGS
+          settings: `
+            <div class="mw-breadcrumb">Dashboard / <b>Settings</b></div>
+
+            <header class="executive-header">
+              <div class="header-left">
+                <h2>System Settings</h2>
+              </div>
+            </header>
+
+            <div class="settings-grid" style="display:grid; grid-template-columns:250px 1fr; gap:40px;">
+              <div class="settings-nav" style="display:flex; flex-direction:column; gap:10px;">
+                <a class="mw-pill" style="justify-content:flex-start;" data-page="settings/general"><i class="bx bx-cog"></i> General Profile</a>
+                <a class="mw-pill" style="justify-content:flex-start;" data-page="settings/security"><i class="bx bx-lock-alt"></i> Security & Keys</a>
+                <a class="mw-pill" style="justify-content:flex-start;" data-page="settings/notifications"><i class="bx bx-bell"></i> Notifications</a>
+                <a class="mw-pill" style="justify-content:flex-start;" data-page="settings/billing"><i class="bx bx-receipt"></i> Billing & Plans</a>
+                <a class="mw-pill" style="justify-content:flex-start; border-color: rgba(239,68,68,0.45);" data-page="settings/danger"><i class="bx bx-error"></i> Danger Zone</a>
+              </div>
+
+              <div class="settings-content">
+                <div class="table-card">
+                  <h3>Choose a settings section</h3>
+                  <p style="color: var(--text-dim); margin: 0;">
+                    Use the menu on the left to open a section.
+                  </p>
+                </div>
+              </div>
+            </div>
+          `,
+
+          "settings/general": `
+            <div class="mw-breadcrumb">Dashboard / Settings / <b>General</b></div>
+            <header class="executive-header"><h2>General Profile</h2></header>
+
+            <div class="table-card">
+              <h3 style="margin-top:0;">App Configuration</h3>
+              <div style="display:grid; gap: 14px;">
+                <div>
+                  <label style="display:block; color:var(--text-dim); font-size:12px; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">Application Name</label>
+                  <input type="text" value="MobWash PRO" style="width:100%; background:#020617; border:1px solid var(--border); padding:12px; border-radius:12px; color:white; outline:none;" />
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                  <div>
+                    <label style="display:block; color:var(--text-dim); font-size:12px; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">Currency</label>
+                    <select style="width:100%; background:#020617; border:1px solid var(--border); padding:12px; border-radius:12px; color:white; outline:none;">
+                      <option>ZMW (Kwacha)</option>
+                      <option>USD ($)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style="display:block; color:var(--text-dim); font-size:12px; margin-bottom:8px; text-transform:uppercase; letter-spacing:1px;">Timezone</label>
+                    <select style="width:100%; background:#020617; border:1px solid var(--border); padding:12px; border-radius:12px; color:white; outline:none;">
+                      <option>Central Africa Time (CAT)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <button class="complete-btn" style="width:100%; padding: 15px; font-size:14px;">Save Changes</button>
+              </div>
+            </div>
+          `,
+
+          "settings/security": `
+            <div class="mw-breadcrumb">Dashboard / Settings / <b>Security & Keys</b></div>
+            <header class="executive-header"><h2>Security & Keys</h2></header>
+
+            <div class="table-card">
+              <h3>API Keys</h3>
+              <p style="color: var(--text-dim); margin-top: 0;">Add/rotate keys here (placeholder UI).</p>
+              <button class="mw-pill" type="button"><i class="bx bx-key"></i> Generate New Key</button>
+            </div>
+          `,
+
+          "settings/notifications": `
+            <div class="mw-breadcrumb">Dashboard / Settings / <b>Notifications</b></div>
+            <header class="executive-header"><h2>Notifications</h2></header>
+
+            <div class="table-card">
+              <h3>Preferences</h3>
+              <p style="color: var(--text-dim); margin-top: 0;">Control admin alerts here (placeholder).</p>
+            </div>
+          `,
+
+          "settings/billing": `
+            <div class="mw-breadcrumb">Dashboard / Settings / <b>Billing</b></div>
+            <header class="executive-header"><h2>Billing & Plans</h2></header>
+
+            <div class="table-card">
+              <h3>Plans</h3>
+              <p style="color: var(--text-dim); margin-top: 0;">Manage billing plans here (placeholder).</p>
+            </div>
+          `,
+
+          "settings/danger": `
+            <div class="mw-breadcrumb">Dashboard / Settings / <b>Danger Zone</b></div>
+            <header class="executive-header"><h2>Danger Zone</h2></header>
+
+            <div class="table-card" style="border-color: rgba(239,68,68,0.35);">
+              <h3 style="color:#ef4444;">High Risk Actions</h3>
+              <p style="color: var(--text-dim); margin-top: 0;">Keep this section gated (placeholder).</p>
+              <button class="mw-pill" type="button" style="border-color: rgba(239,68,68,0.55);">
+                <i class="bx bx-trash"></i> Reset System (Placeholder)
+              </button>
+            </div>
+          `,
+        };
+
+        const render = (page) => {
+          // IMPORTANT FIX:
+          // If a page is unknown or missing, it was falling back to overview (dashboard).
+          // Now we show a proper "Not Found" page instead.
+          const isOverview = page === "overview";
+
+          document.body.classList.toggle("dynamic-page", !isOverview);
+
+          applyActiveLink(page);
+          setTitle(page);
+
+          if (!mount) return;
+
+          if (TEMPLATES[page]) {
+            mount.innerHTML = TEMPLATES[page];
+          } else if (isOverview) {
+            mount.innerHTML = TEMPLATES.overview;
+          } else {
+            mount.innerHTML = `
+              <div class="mw-breadcrumb">Dashboard / <b>Not Found</b></div>
+              <header class="executive-header">
+                <h2>Page Not Found</h2>
+              </header>
+              <div class="table-card">
+                <p style="color: var(--text-dim); margin-top: 0;">
+                  The page <b style="color:white;">${page.replaceAll("<", "&lt;")}</b> does not exist yet.
+                </p>
+                <button class="mw-pill" type="button" data-page="overview">
+                  <i class="bx bxs-dashboard"></i> Go to Overview
+                </button>
+              </div>
+            `;
+          }
+
+          // Let your existing JS know we navigated (optional hook)
+          window.dispatchEvent(new Event("mobwash:navigate"));
+        };
+
+        // Intercept ANY click that has data-page (works for sidebar, cards, buttons, tabs)
+        document.addEventListener("click", (e) => {
+          const el = e.target.closest("[data-page]");
+          if (!el) return;
+
+          // allow ctrl/cmd click open new tab
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+          e.preventDefault();
+
+          const targetPage = (
+            el.getAttribute("data-page") || "overview"
+          ).trim();
+          go(targetPage);
+        });
+
+        // Browser back/forward
+        window.addEventListener("popstate", () => {
+          render(getPage());
+        });
+
+        // Back button
+        if (backBtn) {
+          backBtn.addEventListener("click", () => {
+            if (history.length > 1) history.back();
+            else location.href = "dashboard.html";
+          });
+        }
+
+        // Initial load
+        render(getPage());
+      })();
+    </script>
+
+    <!-- Keep your existing logic -->
+    <script type="module" src="js/dashboard.js"></script>
+  </body>
+</html>

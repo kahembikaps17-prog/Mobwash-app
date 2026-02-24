@@ -1,0 +1,448 @@
+/* --- 3. GLOBAL HEADER (Matches your other pages) --- */
+/* --- PLAIN HEADER STYLE --- */
+.plain-header {
+  padding: 40px 24px 20px;
+  /* Matches the rest of the page */
+  position: relative;
+}
+
+.header-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Minimalist Back Button */
+.minimal-back {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 24px;
+  transition: 0.3s;
+  display: inline-flex;
+  cursor: pointer;
+
+  padding: 10px;
+}
+
+/* Typography for Plain Header */
+.plain-title-area h1 {
+  font-size: 28px;
+  font-weight: 950;
+  color: var(--text-main);
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.plain-title-area p {
+  font-size: 14px;
+  color: var(--text-main);
+  opacity: 0.6;
+  margin-top: 5px;
+}
+
+/* Adjust Content Padding since there's no overlapping header anymore */
+.payment-content {
+  padding: 0 24px 40px;
+  margin-top: 0; /* Reset the negative margin */
+  position: relative;
+}
+
+/* Theme Toggle adjustment for Plain Header */
+.plain-header .theme-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+.glass-back,
+.theme-btn {
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.badge-priority {
+  color: var(--logo-secondary);
+  font-weight: 900;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.header-main-text h1 {
+  font-size: 32px;
+  font-weight: 900;
+  margin: 0;
+}
+.header-main-text p {
+  opacity: 0.8;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* --- 4. PAYMENT CONTENT AREA --- */
+.payment-content {
+  padding: 0 24px;
+  margin-top: -30px;
+}
+
+.card-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--a);
+  margin: 25px 0 15px;
+  display: block;
+}
+
+/* MoMo Cards */
+.momo-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.momo-card {
+  background: var(--momo-card-bg);
+  border: 1px solid var(--border-color);
+  padding: 18px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  backdrop-filter: blur(10px);
+  transition: 0.3s;
+}
+
+.momo-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 10px;
+  color: white;
+}
+
+.airtel .momo-logo {
+  background: #ff0000;
+}
+.mtn .momo-logo {
+  background: #ffcc00;
+  color: #000;
+}
+.zamtel .momo-logo {
+  background: #009933;
+}
+
+.momo-info {
+  flex: 1;
+}
+.momo-info strong {
+  display: block;
+  color: var(--text-main);
+  font-size: 16px;
+}
+.momo-info span {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+/* Active Method Styles */
+.momo-card.active,
+.luxury-field.active {
+  border-color: var(--a) !important;
+  background: rgba(14, 165, 233, 0.08); /* Subtle highlight */
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.1);
+}
+
+.luxury-credit-card {
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.3s;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.luxury-credit-card.active {
+  transform: scale(1.03);
+  border-color: #ffffff; /* Contrast on the dark gradient card */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Success State for the Update Button */
+.execute-btn:disabled {
+  cursor: not-allowed;
+}
+
+/* Luxury Card */
+.luxury-credit-card {
+  height: 190px;
+  border-radius: 28px;
+  padding: 25px;
+  position: relative;
+  overflow: hidden;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #1e40af, #6366f1);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.luxury-credit-card.is-linked.active {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+  border: 2px solid white;
+}
+
+.card-number {
+  font-size: 20px;
+  letter-spacing: 3px;
+  font-family: monospace;
+}
+
+/* Luxury Fields (Bank & Apple Pay) */
+.premium-card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 30px;
+  border: 1px solid var(--border-color);
+}
+
+.luxury-field {
+  background: var(--bg-global);
+  padding: 15px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 10px;
+}
+
+.field-content label {
+  font-size: 10px;
+  color: var(--a);
+  font-weight: 800;
+}
+.field-content input {
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  font-weight: 600;
+  width: 100%;
+}
+
+/* --- 5. ACTION BUTTON --- */
+.execute-btn {
+  width: 100%;
+  padding: 22px;
+  background: var(--a);
+  color: white;
+  border: none;
+  border-radius: 22px;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-top: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.execute-btn:hover {
+  transform: scale(1.02);
+  background: var(--logo-primary);
+}
+
+/* --- 6. TRUST PANEL --- */
+.trust-item {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+  align-items: center;
+}
+.trust-item i {
+  font-size: 24px;
+  color: var(--a);
+}
+.trust-item strong {
+  font-size: 14px;
+  color: var(--text-main);
+}
+.trust-item p {
+  font-size: 12px;
+  color: var(--text-main);
+  opacity: 0.6;
+  margin: 0;
+}
+/* --- BOTTOM SHEET MODAL --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 3000;
+  display: flex;
+  align-items: flex-end; /* Aligns to bottom */
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.modal-overlay.active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.bottom-sheet {
+  width: 100%;
+  background: var(--card-bg);
+  border-top: 1px solid var(--border-color);
+  border-radius: 40px 40px 0 0;
+  padding: 20px 24px 40px;
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-overlay.active .bottom-sheet {
+  transform: translateY(0);
+}
+
+.sheet-handle {
+  width: 40px;
+  height: 5px;
+  background: var(--border-color);
+  border-radius: 10px;
+  margin: 0 auto 20px;
+}
+
+.sheet-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+.sheet-header h2 {
+  color: var(--text-main);
+  margin: 10px 0 5px;
+  font-weight: 900;
+}
+.sheet-header p {
+  font-size: 13px;
+  opacity: 0.6;
+  color: var(--text-main);
+}
+
+.momo-logo-small {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 10px;
+  color: white;
+}
+
+.cancel-btn {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  font-weight: 700;
+  padding: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+  opacity: 0.6;
+}
+
+.info-note {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: rgba(14, 165, 233, 0.05);
+  padding: 12px;
+  border-radius: 12px;
+  margin: 15px 0;
+  font-size: 12px;
+  color: var(--a);
+}
+.momo-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+}
+
+#carrier-prefix {
+  color: var(--a);
+  padding-right: 10px;
+  border-right: 2px solid var(--border-color);
+}
+
+.remove-btn {
+  width: 100%;
+  padding: 18px;
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid #ef4444;
+  border-radius: 20px;
+  font-weight: 800;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.hide-inputs .luxury-field {
+  display: none;
+}
+
+/* Modal Glow matching Provider */
+.modal-overlay.active .bottom-sheet {
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+}
+.prefix-selector {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-right: 2px solid var(--border-color);
+  padding-right: 8px;
+}
+
+#carrier-prefix-dropdown {
+  background: transparent;
+  border: none;
+  color: var(--a);
+  font-weight: 800;
+  font-family: inherit;
+  font-size: 14px;
+  appearance: none; /* Removes default arrow */
+  padding-right: 15px;
+  cursor: pointer;
+}
+
+.prefix-selector i {
+  position: absolute;
+  right: 2px;
+  font-size: 12px;
+  color: var(--a);
+  pointer-events: none;
+}

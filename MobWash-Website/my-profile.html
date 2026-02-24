@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MobWash | Executive Profile</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css/global.css" />
+    <link rel="stylesheet" href="css/styles.css/my-profile.css" />
+  </head>
+  <body class="hub-body">
+    <header class="executive-header">
+      <div
+        class="header-nav-top"
+        style="
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          align-items: center;
+        "
+      >
+        <a href="profile.html" class="action-circle"
+          ><i class="bx bx-chevron-left"></i
+        ></a>
+        <h1
+          class="page-title"
+          style="
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.8;
+          "
+        >
+          Executive Account
+        </h1>
+        <a href="settings.html" class="action-circle"
+          ><i class="bx bx-cog"></i
+        ></a>
+      </div>
+    </header>
+
+    <main class="hub-main">
+      <section class="profile-hero animated-up">
+        <div class="avatar-container large">
+          <div
+            class="avatar-inner"
+            style="
+              background: var(--grad-lux);
+              width: 100px;
+              height: 100px;
+              margin: 0 auto;
+              border-radius: 24px;
+              font-size: 2.5rem;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: white;
+              border: 4px solid var(--card-bg);
+            "
+          >
+            JS
+          </div>
+          <div
+            class="avatar-edit-badge"
+            style="
+              position: absolute;
+              bottom: 0;
+              right: 25%;
+              background: var(--logo-secondary);
+              color: #000;
+              padding: 5px;
+              border-radius: 8px;
+              border: 2px solid var(--card-bg);
+            "
+          >
+            <i class="bx bxs-camera"></i>
+          </div>
+        </div>
+        <h2 id="profile-name" style="margin-top: 15px; font-weight: 900">
+          Jonathan Smith
+        </h2>
+        <span class="id-tag">MEMBER ID: #7721</span>
+      </section>
+
+      <section class="profile-stats grid-2x2" style="margin-top: 30px">
+        <div class="stat-box glass-card-blue">
+          <strong>42</strong>
+          <small>Orders</small>
+        </div>
+        <div class="stat-box">
+          <strong>Elite</strong>
+          <small>Tier</small>
+        </div>
+        <div class="stat-box">
+          <strong>1.2k</strong>
+          <small>Points</small>
+        </div>
+        <div class="stat-box glass-card-blue">
+          <strong>$0.00</strong>
+          <small>Wallet</small>
+        </div>
+      </section>
+
+      <section
+        class="preference-group"
+        style="padding: 0 24px; margin-top: 30px"
+      >
+        <h3 class="section-label">Identity Logistics</h3>
+        <div class="setting-item">
+          <div class="setting-info">
+            <i class="bx bxs-envelope blue-icon"></i>
+            <div>
+              <span>Email Address</span>
+              <small>j.smith@executive.com</small>
+            </div>
+          </div>
+        </div>
+        <div class="setting-item">
+          <div class="setting-info">
+            <i class="bx bxs-map-pin gold-icon"></i>
+            <div>
+              <span>Primary Residence</span>
+              <small>123 Executive Way, Suite 400</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="logout-wrapper">
+        <button class="logout-btn" id="logout-trigger">
+          <i class="bx bx-log-out-circle"></i>
+          <span>Secure Log Out</span>
+        </button>
+      </div>
+    </main>
+
+    <div id="logout-modal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-icon"><i class="bx bx-error-circle"></i></div>
+        <h3>Secure Log Out?</h3>
+        <p>Are you sure you want to end your executive session?</p>
+        <div class="modal-actions">
+          <button id="cancel-logout" class="btn-secondary">Dismiss</button>
+          <button id="confirm-logout" class="btn-danger">End Session</button>
+        </div>
+      </div>
+    </div>
+
+    <nav class="executive-nav">
+      <a href="profile.html" class="nav-link"
+        ><i class="bx bxs-grid-alt"></i><span>Hub</span></a
+      >
+      <a href="express.html" class="nav-link"
+        ><i class="bx bxs-washer"></i><span>Order</span></a
+      >
+      <a href="subscription.html" class="nav-link"
+        ><i class="bx bxs-crown"></i><span>VIP</span></a
+      >
+      <a href="my-profile.html" class="nav-link active"
+        ><i class="bx bxs-user-circle"></i><span>Profile</span></a
+      >
+    </nav>
+
+    <script src="js/global.js"></script>
+    <script type="module" src="js/maintenance-check.js"></script>
+  </body>
+</html>

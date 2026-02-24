@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MobWash | Executive Hub</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/styles.css/global.css" />
+
+    <link rel="stylesheet" href="css/styles.css/profile.css" />
+  </head>
+  <body class="hub-body">
+    <a href="my-profile.html" style="text-decoration: none;">
+    <header class="executive-header animated-up">
+      <div class="user-profile-wrap">
+        <div class="avatar-container shadow-glow-blue">
+          <div class="avatar-inner" id="user-avatar-sm">JS</div>
+          <div class="status-indicator online"></div>
+        </div>
+        <div class="user-meta">
+          <h1 id="user-display-name">Jonathan Smith</h1>
+          <div class="tier-badge">
+            <i class="bx bx-check-double"></i> VERIFIED MEMBER
+          </div>
+        </div>
+      </div>
+    </a>
+      <div class="header-actions">
+        <div class="action-circle glass-effect">
+          <a href="notifications.html" class="action-circle">
+            <i class="bx bxs-bell-ring"></i>
+            <span
+              class="notification-dot"
+              style="
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                width: 8px;
+                height: 8px;
+                background: #dc2626;
+                border-radius: 50%;
+                border: 2px solid var(--card-bg);
+              "
+            ></span>
+          </a>
+        </div>
+        <a href="settings.html" class="action-circle glass-effect">
+          <i class="bx bx-cog"></i>
+        </a>
+      </div>
+    </header>
+
+    <main class="hub-main">
+      <section class="status-tab-row animated-up delay-1">
+        <a
+          href="active-subscription.html"
+          class="status-link"
+          style="text-decoration: none; display: flex; flex: 1"
+        >
+          <div class="status-card glass-card-blue">
+            <small>Subscription</small>
+            <div class="status-info">
+              <strong>Active</strong>
+              <span class="pulse-dot"></span>
+            </div>
+          </div>
+        </a>
+        <a
+          href="track-order.html"
+          class="status-link"
+          style="flex: 1; text-decoration: none"
+        >
+          <div
+            class="status-card glass-card-dark"
+            style="width: 100%; height: 100%"
+          >
+            <small>Live Status</small>
+            <div class="status-info">
+              <strong id="live-order-count">1 Active</strong>
+              <i
+                class="bx bx-radar bx-tada"
+                style="color: var(--a); font-size: 1.2rem"
+              ></i>
+            </div>
+          </div>
+        </a>
+      </section>
+
+      <section
+        id="active-order-section"
+        class="card tracking-card animated-up delay-1"
+        style="display: none"
+      >
+        <div class="tracking-content">
+          <div class="tracking-top">
+            <h3><i class="bx bx-cycling"></i> Priority Dispatch</h3>
+            <span class="id-tag" id="order-id-tag">#7721</span>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-bar-bg">
+              <div id="progress-bar" class="progress-bar-fill"></div>
+            </div>
+            <p id="status-message">Specialist en route to collection point</p>
+          </div>
+        </div>
+      </section>
+
+      <h3 class="section-label">ESSENTIAL LOGISTICS</h3>
+      <div class="essential-stack">
+        <a href="express.html" class="essential-btn gradient-wash animated-up">
+          <div class="btn-icon"><i class="bx bxs-bolt-circle"></i></div>
+          <div class="btn-text">
+            <strong>EXPRESS WASH</strong>
+            <div class="essential-slider">
+              <div class="essential-track">
+                <span><i class="bx bxs-timer"></i>24h Return</span>
+                <span><i class="bx bx-check-double"></i>Wash & Fold</span>
+
+                <span>
+                  <i class="bx bxs-briefcase-alt-2"></i> Business Express</span
+                >
+
+                <span><i class="bx bx-wind"></i>Knitwear</span>
+                <span
+                  ><i class="bx bxs-droplet-half"></i>Premium Fabric
+                  Conditioning</span
+                >
+                <span><i class="bx bx-shield-quarter"></i>Sports Wear</span>
+
+                <span><i class="bx bxs-hot"></i>Instant Steam</span>
+
+                <span><i class="bx bxs-sun"></i>Express Bedding Refresh</span>
+
+                <span
+                  ><i class="bx bx-test-tube"></i>Rapid Stain Extraction</span
+                >
+
+                <span><i class="bx bx-water"></i>Towels</span>
+                <span><i class="bx bxs-zap"></i>Whites</span>
+                <span><i class="bx bx-star"></i>Delicates</span>
+                <span><i class="bx bxs-invader"></i>Shoes</span>
+
+                <span><i class="bx bxs-truck"></i>Proirity Collection</span>
+                <span><i class="bx bxs-map-pin"></i>Concierge Delivery</span>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="subscription.html" class="essential-btn gradient-lux">
+          <div class="btn-icon"><i class="bx bxs-crown"></i></div>
+          <div class="btn-text">
+            <strong>SUBSCRIBE</strong>
+            <div class="essential-slider">
+              <div class="essential-track">
+                <span><i class="bx bxs-truck"></i>Weekly Mobile Pickups</span>
+
+                <span
+                  ><i class="bx bxs-calendar-star"></i>Priority Scheduling</span
+                >
+
+                <span
+                  ><i class="bx bx-check-double"></i>Auto-Monthly Renewal</span
+                >
+
+                <span
+                  ><i class="bx bxs-check-shield"></i>No-Contact Service</span
+                >
+
+                <span
+                  ><i class="bx bxs-up-arrow-alt"></i>Flexible Plan
+                  Upgrades</span
+                >
+
+                <span
+                  ><i class="bx bxs-phone-call"></i>Dedicated Support Line</span
+                >
+
+                <span><i class="bx bxs-coupon"></i> Referal Bonus Credits</span>
+
+                <span><i class="bx bxs-timer"></i>Guaranteed Time Slots</span>
+
+                <span
+                  ><i class="bx bxs-credit-card-alt"></i>Seamless App
+                  Payments</span
+                >
+
+                <span><i class="bx bxs-leaf"></i>Eco-Wash Credits</span>
+
+                <span
+                  ><i class="bx bxs-bell-ring"></i>Instant Status Updates</span
+                >
+
+                <span
+                  ><i class="bx bxs-x-circle"></i>Cancel Anytime Policy</span
+                >
+
+                <span><i class="bx bxs-group"></i>Family Plan Sharing</span>
+
+                <span
+                  ><i class="bx bxs-bar-chart-alt-2"></i>Monthly Savings
+                  Reports</span
+                >
+
+                <span><i class="bx bxs-award"></i>Exclusive Member Perks</span>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="ironing.html" class="essential-btn gradient-press animated-up">
+          <div class="btn-icon"><i class="bx bxs-hot"></i></div>
+          <div class="btn-text">
+            <strong>Steam Press Only</strong>
+            <div class="essential-slider">
+              <div class="essential-track">
+                <span><i class="bx bxs-award"></i>Bespoke Suit Jacket</span>
+                <span
+                  ><i class="bx bx-vertical-center"></i>Formal Trousers</span
+                >
+                <span><i class="bx bxs-layer"></i>Pleated Evening Skirts</span>
+                <span><i class="bx bxs-droplet"></i>Silk Business Blouses</span>
+                <span
+                  ><i class="bx bxs-check-shield"></i>Cotton Oxfor Shirts</span
+                >
+                <span
+                  ><i class="bx bxs-diamond"></i>Double-Cuff French Shirts</span
+                >
+                <span><i class="bx bx-sun"></i>Linen Summer Blazers</span>
+                <span
+                  ><i class="bx bxs-cloud-rain"></i>Trench Coat Refresh</span
+                >
+                <span><i class="bx bxs-user-badge"></i>Evening Waistcoats</span>
+                <span><i class="bx bxs-thermometer"></i>Wool Overcoats</span>
+                <span><i class="bx bxs-graduation"></i>Academic Gowns</span>
+                <span
+                  ><i class="bx bxs-dish"></i>Chef & Hospitality Whites</span
+                >
+                <span
+                  ><i class="bx bxs-medal"></i>Military & Uniform Creasing</span
+                >
+                <span
+                  ><i class="bx bx-wind"></i>Scarf & Silk Accessory Press</span
+                >
+                <span><i class="bx bx-unite"></i>Curtain & Drape Steaming</span>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a href="household.html" class="essential-btn gradient-house">
+          <div class="btn-icon"><i class="bx bxs-home-heart"></i></div>
+          <div class="btn-text">
+            <strong>DRY-CLEAN</strong>
+            <div class="essential-slider">
+              <div class="essential-track">
+                <span
+                  ><i class="bx bxs-briefcase"></i>Bespoke Suit Jackets</span
+                >
+                <span><i class="bx bxs-party"></i>Evening & Gala Gowns</span>
+                <span><i class="bx bxs-diamond"></i>Delicate Silk Blouses</span>
+                <span
+                  ><i class="bx bxs-landscape"></i>Heavy Wool Overcoats</span
+                >
+                <span
+                  ><i class="bx bxs-magic-wand"></i>Wedding Dress Couture</span
+                >
+                <span><i class="bx bxs-layer"></i>Cashmere & Merino Knits</span>
+                <span
+                  ><i class="bx bxs-check-square"></i>Professional Shirt
+                  Press</span
+                >
+                <span><i class="bx bxs-star"></i>Velvet & Suede Apparel</span>
+                <span
+                  ><i class="bx bxs-shield-alt-2"></i>Leather & Trimmed
+                  Coats</span
+                >
+                <span
+                  ><i class="bx bx-menu-alt-right"></i>Accordion Pleated
+                  Skirts</span
+                >
+                <span><i class="bx bx-wind"></i>Fine Linen Summer Wear</span>
+                <span
+                  ><i class="bx bxs-shopping-bag"></i>Designer Handbag
+                  Care</span
+                >
+                <span><i class="bx bxs-ghost"></i>Fur & Faux-Fur Finishes</span>
+                <span
+                  ><i class="bx bxs-palette"></i>Intricate Embroidered
+                  Wear</span
+                >
+                <span
+                  ><i class="bx bxs-certification"></i>Stain Removal
+                  Specialist</span
+                >
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <h3 class="section-label">PREMIUM SPECIAL CARE</h3>
+      <div class="specialty-grid-2x2">
+        <div class="spec-card-v2">
+          <div class="spec-head"><i class="bx bxs-diamond gold-icon"></i></div>
+          <div class="spec-slider">
+            <div class="slide-track">
+              <span>Wedding Gowns</span><span>Luxury Suits</span
+              ><span>Velvet Capes</span><span>Designer Silk</span
+              ><span>Evening Wear</span>
+            </div>
+          </div>
+        </div>
+        <div class="spec-card-v2">
+          <div class="spec-head">
+            <i class="bx bxs-home-heart blue-icon"></i>
+          </div>
+          <div class="spec-slider">
+            <div class="slide-track">
+              <span>Duvet Inner</span><span>Wool Carpets</span
+              ><span>Curtains</span><span>Weighted Blankets</span
+              ><span>Sofa Covers</span>
+            </div>
+          </div>
+        </div>
+        <div class="spec-card-v2">
+          <div class="spec-head">
+            <i class="bx bxs-component purple-icon"></i>
+          </div>
+          <div class="spec-slider">
+            <div class="slide-track">
+              <span>Leather Jackets</span><span>Suede Boots</span
+              ><span>Luxury Bags</span><span>Belts & Trim</span
+              ><span>Fur Coats</span>
+            </div>
+          </div>
+        </div>
+        <div class="spec-card-v2">
+          <div class="spec-head"><i class="bx bxs-invader green-icon"></i></div>
+          <div class="spec-slider">
+            <div class="slide-track">
+              <span>Ski Wear</span><span>Gore-Tex Gear</span
+              ><span>Gym Tech</span><span>Trainer Deep Clean</span
+              ><span>Running Shoes</span>
+            </div>
+          </div>
+        </div>
+        <section class="promo-banner animated-up">
+          <div class="promo-content">
+            <div class="promo-badge">WEEKEND OFFER</div>
+            <h2>50% OFF Bedding</h2>
+            <p>Refresh your sanctuary this weekend only.</p>
+          </div>
+          <button class="promo-btn">Claim Now</button>
+        </section>
+      </div>
+    </main>
+    <div class="logout-wrapper">
+      <button id="logout-trigger" class="logout-btn">
+        <i class="bx bx-log-out-circle"></i>
+        <span>Secure Log Out</span>
+      </button>
+    </div>
+    <div id="logout-modal" class="modal-overlay">
+      <div class="modal-content glass-card-dark">
+        <div class="modal-icon"><i class="bx bx-error-circle"></i></div>
+        <h3>Secure Log Out?</h3>
+        <p>Are you sure you want to end your session, Jonathan?</p>
+
+        <div class="modal-actions">
+          <button id="cancel-logout" class="btn-secondary">Dismiss</button>
+          <button id="confirm-logout" class="btn-danger">End Session</button>
+        </div>
+      </div>
+    </div>
+
+    <nav class="executive-nav">
+      <a href="profile.html" class="nav-link active"
+        ><i class="bx bxs-grid-alt"></i><span>Hub</span></a
+      >
+      <a href="express.html" class="nav-link"
+        ><i class="bx bxs-washer"></i><span>Order</span></a
+      >
+      <a href="subscription.html" class="nav-link"
+        ><i class="bx bxs-crown"></i><span>VIP</span></a
+      >
+      <a href="my-profile.html" class="nav-link"
+        ><i class="bx bxs-user-circle"></i><span>Profile</span></a
+      >
+    </nav>
+    <script src="js/global.js"></script>
+    <script type="module" src="js/profile-logic.js"></script>
+    <script type="module" src="js/maintenance-check.js"></script>
+  </body>
+</html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MobWash | Executive Settings</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css/global.css" />
+    <link rel="stylesheet" href="css/styles.css/settings.css" />
+  </head>
+  <body class="hub-body" data-no-history-back>
+    <header class="settings-header">
+      <a href="profile.html" class="glass-back"
+        ><i class="bx bx-chevron-left"></i
+      ></a>
+      <div class="header-title">
+        <h1>Account Settings</h1>
+        <p>Manage your executive preferences</p>
+      </div>
+    </header>
+
+    <main class="settings-container">
+      <h3 class="settings-label">Security & Identity</h3>
+      <div class="settings-group">
+        <div class="setting-item">
+          <div class="setting-icon"><i class="bx bx-user-pin"></i></div>
+          <div class="setting-info">
+            <label>Display Name</label>
+            <input type="text" value="Jonathan Smith" />
+          </div>
+        </div>
+        <div class="setting-item">
+          <div class="setting-icon"><i class="bx bx-envelope"></i></div>
+          <div class="setting-info">
+            <label>Email Address</label>
+            <input type="email" value="j.smith@executive.com" />
+          </div>
+        </div>
+      </div>
+
+      <h3 class="settings-label">Preferences</h3>
+      <div class="settings-group">
+        <div class="setting-item toggle-item">
+          <div class="setting-icon"><i class="bx bx-moon"></i></div>
+          <div class="setting-info">
+            <strong>Appearance</strong>
+            <span>Dark Mode Active</span>
+          </div>
+          <button
+            class="theme-toggle-btn"
+            id="theme-toggle"
+            aria-label="Toggle Theme"
+          >
+          <div class="toggle-track">
+            <div class="toggle-thumb"></div>
+           </div>
+          </button>
+        </div>
+     <a href="notifications.html" class="setting-item notification-link">
+  <div class="setting-icon">
+    <i class="bx bxs-bell-ring gold-icon"></i>
+  </div>
+  <div class="setting-info">
+    <strong>Notifications</strong>
+    <span>Order updates & alerts</span>
+  </div>
+  <div class="setting-nav-hint">
+    <i class="bx bx-chevron-right"></i>
+  </div>
+</a>
+
+<a href="payments.html" style="text-decoration: none;">
+      <h3 class="settings-label">Billing</h3>
+      <div class="settings-group">
+        <div class="setting-item">
+          <div class="setting-icon"><i class="bx bx-credit-card"></i></div>
+          <div class="setting-info">
+            <strong>Payment Methods</strong>
+            <span>Visa ending in 4421</span>
+          </div>
+          <i class="bx bx-chevron-right"></i>
+        </div>
+      </div>
+</a>
+      <h3 class="settings-label">Logistics</h3>
+      <div class="settings-group">
+        <div class="setting-item">
+          <div class="setting-icon"><i class="bx bx-map-pin"></i></div>
+          <div class="setting-info">
+            <strong>Primary Residence</strong>
+            <span>122 Executive Towers, Sandton</span>
+          </div>
+          <i class="bx bx-edit-alt" style="opacity: 0.5"></i>
+        </div>
+        <div class="setting-item">
+          <div class="setting-icon"><i class="bx bx-briefcase"></i></div>
+          <div class="setting-info">
+            <strong>Corporate Office</strong>
+            <span>Suite 405, Global Plaza</span>
+          </div>
+          <i class="bx bx-edit-alt" style="opacity: 0.5"></i>
+        </div>
+      </div>
+
+      <h3 class="settings-label">Archive</h3>
+      <div class="settings-group">
+        <a
+          href="orders.html"
+          class="setting-item"
+          style="text-decoration: none"
+        >
+          <div class="setting-icon"><i class="bx bx-history"></i></div>
+          <div class="setting-info">
+            <strong>Order History</strong>
+            <span>View all past 24 transactions</span>
+          </div>
+          <i class="bx bx-chevron-right"></i>
+        </a>
+      </div>
+    </main>
+
+    <script src="js/global.js"></script>
+    <script src="js/settings.js"></script>
+    <script type="module" src="js/maintenance-check.js"></script>
+  </body>
+</html>

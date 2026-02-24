@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Tracking | MobWash</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css/global.css" />
+    <link rel="stylesheet" href="css/styles.css/track-order.css" />
+  </head>
+  <body>
+    <header class="track-header">
+      <a href="profile.html" class="back-link"
+        ><i class="bx bx-left-arrow-alt"></i
+      ></a>
+      <div class="status-badge">Live Update</div>
+      <h1>Order #MOB-8821</h1>
+      <p class="order-estimate">
+        Estimated Completion: <strong>4:30 PM Today</strong>
+      </p>
+      <div
+        class="tracking-card"
+        style="margin: -20px 24px 25px; position: relative; z-index: 10"
+      >
+        <div class="tracking-top">
+          <h3>Current Stage</h3>
+          <span class="id-tag">45% Done</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div
+            class="progress-bar-fill"
+            style="width: 45%; transition: width 1s ease-in-out"
+          ></div>
+        </div>
+
+        <div id="status-message">
+          Valet is currently navigating to your location.
+        </div>
+      </div>
+    </header>
+
+    <main class="track-container">
+      <div class="progress-visual glass-effect">
+        <div class="radar-ping"></div>
+        <i class="bx bxs-truck bx-tada"></i>
+        <span class="status-text">Valet is En-Route</span>
+        <p class="status-subtext">Marcus is 1.2 miles away</p>
+      </div>
+
+      <div class="tracking-timeline">
+        <div class="step completed">
+          <div class="node"><i class="bx bx-check"></i></div>
+          <div class="step-content">
+            <h3>Order Confirmed</h3>
+            <span>10:15 AM</span>
+          </div>
+        </div>
+
+        <div class="step active">
+          <div class="node"></div>
+          <div class="step-content">
+            <h3>Valet Pickup</h3>
+            <span>In Progress — Driver: Marcus</span>
+          </div>
+        </div>
+
+        <div class="step pending">
+          <div class="node"></div>
+          <div class="step-content">
+            <h3>Sanitization Lab</h3>
+            <span>Awaiting Arrival</span>
+          </div>
+        </div>
+
+        <div class="step pending">
+          <div class="node"></div>
+          <div class="step-content">
+            <h3>Quality Inspection</h3>
+            <span>Final Press & Pack</span>
+          </div>
+        </div>
+
+        <div class="step pending">
+          <div class="node"></div>
+          <div class="step-content">
+            <h3>Out for Delivery</h3>
+            <span>Scheduled for 4:00 PM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="driver-card">
+        <div class="driver-info">
+          <div class="driver-avatar">M</div>
+          <div>
+            <strong>Marcus J.</strong>
+            <span>MobWash Certified Valet</span>
+          </div>
+        </div>
+        <div class="driver-actions">
+          <button class="action-btn"><i class="bx bxs-phone"></i></button>
+          <button class="action-btn">
+            <i class="bx bxs-message-rounded-dots"></i>
+          </button>
+        </div>
+      </div>
+    </main>
+    <script src="js/global.js"></script>
+    <script type="module" src="js/maintenance-check.js"></script>
+  </body>
+</html>

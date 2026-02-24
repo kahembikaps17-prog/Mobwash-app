@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Schedule Routine | MobWash</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/global.css" />
+
+    <link rel="stylesheet" href="css/styles.css/schedule.css" />
+  </head>
+  <body>
+    <a href="index.html" class="back-btn" title="Go Back">
+      <i class="fa-solid fa-arrow-left"></i>
+    </a>
+
+    <div class="schedule-wrapper">
+      <header class="schedule-header">
+        <img
+          src="images/mobwash-logo/Mobwash-logot.svg"
+          class="logo"
+          alt="MobWash Logo"
+        />
+        <h1>Routine Care</h1>
+        <p>
+          Set your preferred weekly pickup day and we'll be there every week.
+        </p>
+      </header>
+
+      <form id="schedule-form" class="schedule-card">
+        <div class="form-section">
+          <label class="section-label">1. Choose Pickup Day</label>
+          <div class="day-picker">
+            <label class="day-option">
+              <input type="radio" name="pickup-day" value="Monday" checked />
+              <div class="day-content">Mon</div>
+            </label>
+            <label class="day-option">
+              <input type="radio" name="pickup-day" value="Wednesday" />
+              <div class="day-content">Wed</div>
+            </label>
+            <label class="day-option">
+              <input type="radio" name="pickup-day" value="Friday" />
+              <div class="day-content">Fri</div>
+            </label>
+            <label class="day-option">
+              <input type="radio" name="pickup-day" value="Saturday" />
+              <div class="day-content">Sat</div>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <label class="section-label">2. Time Slot & Address</label>
+          <div class="input-group">
+            <div class="input-field">
+              <i class="fa-solid fa-clock"></i>
+              <select id="time-slot" required>
+                <option value="" disabled selected>Select Time Slot</option>
+                <option value="morning">Morning (08:00 - 11:00)</option>
+                <option value="afternoon">Afternoon (13:00 - 16:00)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="input-field">
+              <i class="fa-solid fa-house-chimney"></i>
+              <input
+                type="text"
+                id="address"
+                placeholder="Residential Address"
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="schedule-btn">
+          Save Routine Schedule
+        </button>
+        <p class="terms-note">
+          By saving, you authorize a recurring weekly pickup.
+        </p>
+      </form>
+    </div>
+
+    <a href="https://wa.me/260767926215" class="whatsapp-pill">
+      <i class="fa-brands fa-whatsapp"></i>
+      <span>Help</span>
+    </a>
+    <script src="js/global.js"></script>
+    <script type="module" src="js/maintenance-check.js"></script>
+  </body>
+</html>

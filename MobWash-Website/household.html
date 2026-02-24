@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dry Cleaning | MobWash</title>
+
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Use your new "professional" CSS file here -->
+    <link rel="stylesheet" href="css/styles.css/household.css" />
+    <link rel="stylesheet" href="css/styles.css/global.css" />
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header class="service-header">
+      <a href="profile.html" class="back-link">
+        <i class="bx bx-left-arrow-alt"></i>
+      </a>
+
+      <div class="header-icon"><i class="bx bxs-briefcase-alt-2"></i></div>
+      <h1>Dry Cleaning</h1>
+
+      <div class="sliding-hook">
+        <span class="highlight">Executive-grade garment care.</span>
+        <span class="detail">
+          Precision cleaning, fiber protection, and luxury finishing for
+          businesswear and special pieces.
+        </span>
+      </div>
+    </header>
+
+    <main class="service-container">
+      <!-- SERVICES -->
+      <h3 class="section-label">Select Dry-Clean Services</h3>
+
+      <div class="selection-grid">
+        <label class="item-card">
+          <input type="checkbox" />
+          <span class="price-pill">K120</span>
+          <div class="card-content">
+            <i class="bx bxs-briefcase"></i>
+            <strong>Suit Jacket</strong>
+            <span>Structured lapels, lining-safe protocol</span>
+          </div>
+        </label>
+
+        <label class="item-card">
+          <input type="checkbox" />
+          <span class="price-pill">K95</span>
+          <div class="card-content">
+            <i class="bx bxs-user-badge"></i>
+            <strong>Formal Trousers</strong>
+            <span>Crease-preserve clean + executive finish</span>
+          </div>
+        </label>
+
+        <label class="item-card">
+          <input type="checkbox" />
+          <span class="price-pill">K85</span>
+          <div class="card-content">
+            <i class="bx bxs-check-shield"></i>
+            <strong>Business Shirts</strong>
+            <span>Collar care, cuff brightening, press-ready</span>
+          </div>
+        </label>
+
+        <label class="item-card">
+          <input type="checkbox" />
+          <span class="price-pill">K150</span>
+          <div class="card-content">
+            <i class="bx bxs-cloud-rain"></i>
+            <strong>Trench Coat</strong>
+            <span>Weather-fabric safe cleaning + shape hold</span>
+          </div>
+        </label>
+
+        <label class="item-card">
+          <input type="checkbox" />
+          <span class="price-pill">K180</span>
+          <div class="card-content">
+            <i class="bx bxs-diamond"></i>
+            <strong>Silk & Delicates</strong>
+            <span>Low-agitation, color protection, hand-finish</span>
+          </div>
+        </label>
+
+        <label class="item-card">
+          <input type="checkbox" />
+          <span class="price-pill">K140</span>
+          <div class="card-content">
+            <i class="bx bxs-layer"></i>
+            <strong>Designer Dresses</strong>
+            <span>Stitch-safe cleaning, premium fiber treatment</span>
+          </div>
+        </label>
+
+        <label class="item-card">
+          <input type="checkbox" />
+          <span class="price-pill">K110</span>
+          <div class="card-content">
+            <i class="bx bx-wind"></i>
+            <strong>Knitwear</strong>
+            <span>Anti-stretch method, soft-dry finish</span>
+          </div>
+        </label>
+
+        <label class="item-card">
+          <input type="checkbox" />
+          <span class="price-pill">K200</span>
+          <div class="card-content">
+            <i class="bx bxs-hot"></i>
+            <strong>Evening Wear</strong>
+            <span>Beads/trim protected, luxury scent finish</span>
+          </div>
+        </label>
+
+        <label class="item-card">
+          <input type="checkbox" />
+          <span class="price-pill">K160</span>
+          <div class="card-content">
+            <i class="bx bxs-shield-quarter"></i>
+            <strong>Leather & Suede</strong>
+            <span>Specialist handling, texture-preserve care</span>
+          </div>
+        </label>
+
+        <label class="item-card">
+          <input type="checkbox" />
+          <span class="price-pill">K75</span>
+          <div class="card-content">
+            <i class="bx bx-test-tube"></i>
+            <strong>Stain Treatment</strong>
+            <span>Targeted extraction before full clean</span>
+          </div>
+        </label>
+      </div>
+
+      <!-- BRIEF -->
+      <section class="info-section">
+        <h3 class="section-label">Garment Notes</h3>
+
+        <div class="instruction-card">
+          <div class="card-top">
+            <i class="bx bx-edit-alt"></i><span>Preferences & Details</span>
+          </div>
+
+          <textarea
+            placeholder="e.g. 'No fragrance', 'Protect buttons', 'Light press only', 'Extra stain attention on cuffs'..."
+          ></textarea>
+
+          <div class="card-bottom">
+            <span>Precision notes, perfect finish.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- LOGISTICS -->
+      <div class="premium-card animated-up">
+        <label class="card-label">Logistics</label>
+
+        <div class="luxury-field" id="addressField">
+          <div class="field-content">
+            <label>Collection Point</label>
+            <input
+              type="text"
+              id="address"
+              placeholder="Enter Location"
+              required
+            />
+          </div>
+          <div class="field-icon"><i class="bx bx-map-pin"></i></div>
+        </div>
+
+        <div class="scheduling-container">
+          <div class="luxury-field" id="dateField">
+            <div class="field-content">
+              <label>Date</label>
+              <input type="date" id="pickup-date" required />
+            </div>
+            <div class="field-icon"><i class="bx bx-calendar-alt"></i></div>
+          </div>
+
+          <div class="luxury-field" id="timeField">
+            <div class="field-content">
+              <label>Time</label>
+              <input type="time" id="pickup-time" required />
+            </div>
+            <div class="field-icon"><i class="bx bx-time-five"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUMMARY -->
+      <div class="luxury-review-card animated-up">
+        <div class="review-details">
+          <div class="detail-line" style="align-items: flex-start">
+            <span><i class="bx bx-shopping-bag"></i> Service</span>
+            <div
+              id="summary-items"
+              style="
+                text-align: right;
+                font-weight: 900;
+                color: var(--home-accent);
+              "
+            >
+              None Selected
+            </div>
+          </div>
+
+          <div class="detail-line">
+            <span><i class="bx bx-map-pin"></i> Location</span>
+            <strong id="summary-location">Not Set</strong>
+          </div>
+
+          <div class="detail-line">
+            <span><i class="bx bx-calendar-event"></i> Schedule</span>
+            <strong id="summary-logistics">Select Date & Time</strong>
+          </div>
+        </div>
+
+        <div class="review-total">
+          <span>Estimated Total</span>
+          <span class="price-tag executive-total-display" id="grand-total"
+            >K0.00</span
+          >
+        </div>
+
+        <button class="execute-btn" id="order-pickup-btn">
+          Confirm Priority Order
+        </button>
+      </div>
+
+      <!-- FEEDBACK (Styled Properly) -->
+      <section class="reviews-section animated-up delay-2">
+        <h3 class="section-label">Executive Feedback</h3>
+
+        <!-- IMPORTANT: No glass-card-dark class here -->
+        <article class="review-card luxury-border">
+          <div class="review-header">
+            <div class="user-info">
+              <div class="user-avatar-gold">KM</div>
+              <div class="user-details">
+                <strong>Kael M.</strong>
+                <span class="user-status">Gold Member</span>
+              </div>
+            </div>
+            <div class="rating-stars" aria-label="5 star rating">
+              <i class="bx bxs-star"></i>
+              <i class="bx bxs-star"></i>
+              <i class="bx bxs-star"></i>
+              <i class="bx bxs-star"></i>
+              <i class="bx bxs-star"></i>
+            </div>
+          </div>
+
+          <p class="review-body">
+            “My suit came back crisp, structured, and spotless. No chemical
+            smell, no shine, just that executive finish. The pickup and delivery
+            timing was professional.”
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <!-- SUCCESS OVERLAY -->
+    <div class="success-overlay" id="luxSuccessOverlay">
+      <div class="success-hero">
+        <i class="bx bx-check"></i>
+      </div>
+
+      <div class="success-content">
+        <h2>Dry Clean Confirmed</h2>
+        <p>
+          Your garments are now under executive-care handling. A valet is queued
+          for collection.
+        </p>
+      </div>
+
+      <a
+        href="track-order.html"
+        style="
+          text-decoration: none;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+        "
+      >
+        <button class="track-btn">
+          Track Collection <i class="bx bx-right-arrow-alt"></i>
+        </button>
+      </a>
+    </div>
+
+    <script src="js/global.js"></script>
+    <script type="module" src="js/maintenance-check.js"></script>
+
+    <!-- PAGE LOGIC -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const cards = document.querySelectorAll(".item-card");
+        const checkboxes = document.querySelectorAll(
+          '.selection-grid input[type="checkbox"]',
+        );
+
+        const summaryItems = document.getElementById("summary-items");
+        const summaryLocation = document.getElementById("summary-location");
+        const summaryLogistics = document.getElementById("summary-logistics");
+
+        const grandTotal = document.getElementById("grand-total");
+        const orderBtn = document.getElementById("order-pickup-btn");
+
+        const addressInput = document.getElementById("address");
+        const dateInput = document.getElementById("pickup-date");
+        const timeInput = document.getElementById("pickup-time");
+
+        const successOverlay = document.getElementById("luxSuccessOverlay");
+
+        // Make entire luxury-field open date/time pickers (mobile-friendly)
+        const dateField = document.getElementById("dateField");
+        const timeField = document.getElementById("timeField");
+        if (dateField)
+          dateField.addEventListener(
+            "click",
+            () => dateInput.showPicker?.() || dateInput.focus(),
+          );
+        if (timeField)
+          timeField.addEventListener(
+            "click",
+            () => timeInput.showPicker?.() || timeInput.focus(),
+          );
+
+        // Card click toggles checkbox + adds .selected
+        cards.forEach((card) => {
+          card.addEventListener("click", (e) => {
+            // Prevent double toggles when clicking directly on the input
+            if (e.target.tagName.toLowerCase() === "input") return;
+
+            const cb = card.querySelector('input[type="checkbox"]');
+            cb.checked = !cb.checked;
+            card.classList.toggle("selected", cb.checked);
+            updateSummary();
+          });
+        });
+
+        // Keep .selected in sync when checkbox is clicked directly
+        checkboxes.forEach((cb) => {
+          cb.addEventListener("change", () => {
+            const card = cb.closest(".item-card");
+            if (card) card.classList.toggle("selected", cb.checked);
+            updateSummary();
+          });
+        });
+
+        function withinHours(timeStr) {
+          // expects "HH:MM"
+          if (!timeStr || !timeStr.includes(":")) return true;
+          const [h, m] = timeStr.split(":").map(Number);
+          if (Number.isNaN(h) || Number.isNaN(m)) return true;
+          // operation hours 06:00 to 18:00 inclusive
+          const minutes = h * 60 + m;
+          return minutes >= 6 * 60 && minutes <= 18 * 60;
+        }
+
+        function showHoursPopup() {
+          alert("Our operation hours are only from 06:00 to 18:00.");
+        }
+
+        function updateSummary() {
+          let total = 0;
+          let names = [];
+
+          cards.forEach((card) => {
+            const cb = card.querySelector('input[type="checkbox"]');
+            if (!cb || !cb.checked) return;
+
+            const nameTag = card.querySelector("strong");
+            const name = nameTag ? nameTag.innerText.trim() : "Selected Item";
+            names.push(name);
+
+            const priceTag = card.querySelector(".price-pill");
+            if (priceTag) {
+              const priceValue = parseFloat(
+                priceTag.innerText.replace(/[^\d.]/g, ""),
+              );
+              total += isNaN(priceValue) ? 0 : priceValue;
+            }
+          });
+
+          summaryItems.innerText = names.length
+            ? names.join(", ")
+            : "None Selected";
+          grandTotal.innerText = `K${total.toFixed(2)}`;
+
+          summaryLocation.innerText = addressInput.value.trim() || "Not Set";
+          if (dateInput.value && timeInput.value) {
+            summaryLogistics.innerText = `${dateInput.value} @ ${timeInput.value}`;
+          } else {
+            summaryLogistics.innerText = "Select Date & Time";
+          }
+
+          const isReady =
+            names.length > 0 &&
+            addressInput.value.trim() !== "" &&
+            dateInput.value !== "" &&
+            timeInput.value !== "" &&
+            withinHours(timeInput.value);
+
+          if (
+            names.length > 0 &&
+            timeInput.value &&
+            !withinHours(timeInput.value)
+          ) {
+            showHoursPopup();
+          }
+
+          if (isReady) {
+            orderBtn.style.opacity = "1";
+            orderBtn.style.pointerEvents = "auto";
+            orderBtn.style.filter = "grayscale(0%) brightness(1)";
+          } else {
+            orderBtn.style.opacity = "0.4";
+            orderBtn.style.pointerEvents = "none";
+            orderBtn.style.filter = "grayscale(50%)";
+          }
+        }
+
+        // Live updates
+        addressInput.addEventListener("input", updateSummary);
+        dateInput.addEventListener("change", updateSummary);
+        timeInput.addEventListener("change", () => {
+          if (timeInput.value && !withinHours(timeInput.value)) {
+            showHoursPopup();
+            timeInput.value = "";
+          }
+          updateSummary();
+        });
+
+        // Submit
+        orderBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          // Safety check
+          if (!withinHours(timeInput.value)) {
+            showHoursPopup();
+            return;
+          }
+
+          successOverlay.classList.add("active");
+          if (window.navigator.vibrate) window.navigator.vibrate(50);
+
+          // Reset after success (gives user a moment to see overlay)
+          setTimeout(() => {
+            // Clear selections
+            cards.forEach((card) => {
+              const cb = card.querySelector('input[type="checkbox"]');
+              if (cb) cb.checked = false;
+              card.classList.remove("selected");
+            });
+
+            // Clear inputs
+            addressInput.value = "";
+            dateInput.value = "";
+            timeInput.value = "";
+
+            // Clear summary
+            updateSummary();
+
+            // Optional: auto close overlay after reset
+            // successOverlay.classList.remove("active");
+          }, 700);
+        });
+
+        // Initial render
+        updateSummary();
+      });
+    </script>
+  </body>
+</html>

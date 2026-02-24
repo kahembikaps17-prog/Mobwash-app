@@ -1,0 +1,188 @@
+/* --- 1. THE THEME ENGINE --- */
+:root {
+  /* LIGHT MODE - Default (No attribute needed) */
+  --bg-global: #f0f9ff;
+  --text-main: #0c4a6e;
+  --text-muted: #64748b; /* Added for your nav-links */
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --border-color: #bae6fd;
+  --a: #0ea5e9;
+  --nav-bg: linear-gradient(145deg, #ffffff, #e0f2fe);
+  --nav-border: rgba(14, 165, 233, 0.1);
+  --nav-text: #7dd3fc;
+  --nav-active: #0ea5e9;
+  --logo-primary: #0369a1;
+  --logo-secondary: #f59e0b;
+}
+
+/* DARK MODE - Triggered by JS */
+[data-theme="dark"] {
+  --bg-global: #020617;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --card-bg: rgba(15, 23, 42, 0.9);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --nav-bg: linear-gradient(145deg, #111827, #030712);
+  --nav-border: rgba(255, 255, 255, 0.1);
+  --nav-text: #94a3b8;
+  --nav-active: #fbbf24;
+  --logo-primary: #60a5fa;
+  --logo-secondary: #fbbf24;
+}
+
+/* --- 2. RESET & BASE --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+  background-color: var(--bg-global);
+  color: var(--text-main);
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
+  padding-bottom: 120px;
+  background-image: url("data:image/svg+xml,%3Csvg width='800' height='800' viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%230ea5e9' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' opacity='0.1'%3E%3Ctext x='40' y='120' font-family='sans-serif' font-size='38' fill='%230ea5e9' stroke='none' transform='rotate(-12 40 120)'%3EMobwash Laundry Care%3C/text%3E%3C/g%3E%3C/svg%3E");
+  background-size: 800px 800px;
+  background-attachment: fixed;
+}
+
+[data-theme="dark"] {
+  background-image: url("data:image/svg+xml,%3Csvg width='800' height='800' viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23334155' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' opacity='0.15'%3E%3Ctext x='40' y='120' font-family='sans-serif' font-size='38' fill='%23334155' stroke='none' transform='rotate(-12 40 120)'%3EMobwash Laundry Care%3C/text%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* --- 3. THEME TOGGLE POSITION --- */
+.header-top-row {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.theme-btn {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--a);
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.glass-back {
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 24px;
+}
+
+/* --- 4. NAVIGATION --- */
+.executive-nav {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 450px;
+  height: 75px;
+  background: var(--nav-bg);
+  border: 1px solid var(--nav-border);
+  border-radius: 24px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link {
+  color: var(--nav-text);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.nav-link i {
+  font-size: 24px;
+  margin-bottom: 2px;
+}
+.nav-link span {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.nav-link.active {
+  color: var(--nav-active);
+}
+/* --- UNIVERSAL EXECUTIVE NAVIGATION --- */
+.executive-nav {
+  position: fixed;
+  bottom: 24px; /* Lifted slightly off the bottom */
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  max-width: 400px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 8px;
+  z-index: 9999;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(15px); /* Premium Glass Effect */
+  -webkit-backdrop-filter: blur(15px);
+}
+
+.nav-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  transition: all 0.3s ease;
+}
+
+.nav-link i {
+  font-size: 1.5rem; /* Large Executive Icons */
+}
+
+.nav-link span {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* The Active State */
+.nav-link.active {
+  color: var(--logo-secondary); /* Your MobWash Orange/Gold */
+}
+
+.nav-link.active i {
+  transform: translateY(-2px); /* Subtle lift for active page */
+  text-shadow: 0 0 10px rgba(251, 146, 60, 0.3);
+}

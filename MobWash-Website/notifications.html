@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MobWash | Notifications Feed</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css/global.css" />
+    <link rel="stylesheet" href="css/styles.css/notifications.css" />
+  </head>
+  <body class="hub-body">
+    <header class="executive-header">
+      <div
+        class="header-nav-top"
+        style="
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          align-items: center;
+          padding: 45px 24px 20px;
+        "
+      >
+        <a href="profile.html" class="action-circle"
+          ><i class="bx bx-chevron-left"></i
+        ></a>
+        <h1 class="page-title">Inbox</h1>
+        <button class="action-circle" id="mark-read-trigger" title="Clear All">
+          <i class="bx bx-check-double"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="notification-feed animated-up">
+      <div class="notification-feed">
+        <div id="pull-to-refresh">
+          <i class="bx bx-loader-alt refresh-icon"></i>
+        </div>
+
+        <div class="notification-card unread">...</div>
+      </div>
+      <div
+        class="notification-card unread"
+        onclick="
+          openNotifModal(
+            'Service Update',
+            'Your **Tesla Model 3** wash has been completed successfully. Our executive detailer has uploaded 4 high-resolution photos to your order history for your review.',
+            'wash',
+          )
+        "
+      >
+        <div class="notif-icon-wrap wash">
+          <i class="bx bxs-washer"></i>
+        </div>
+        <div class="notif-content">
+          <div class="notif-header">
+            <span class="notif-category">Service Update</span>
+            <span class="notif-time">Just Now</span>
+          </div>
+          <p>Your **Tesla Model 3** wash has been completed...</p>
+        </div>
+      </div>
+
+      <div
+        class="notification-card"
+        onclick="
+          openNotifModal(
+            'Executive Perks',
+            'Congratulations! You have been awarded **500 bonus points** for your loyalty. These can be redeemed for a complimentary interior detailing on your next visit.',
+            'promo',
+          )
+        "
+      >
+        <div class="notif-icon-wrap promo">
+          <i class="bx bxs-badge-check"></i>
+        </div>
+        <div class="notif-content">
+          <div class="notif-header">
+            <span class="notif-category">Executive Perks</span>
+            <span class="notif-time">2h ago</span>
+          </div>
+          <p>
+            You've earned **500 bonus points**! You're only 200 points away...
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="notification-card"
+        onclick="
+          openNotifModal(
+            'Security Alert',
+            'A new login was detected from a Chrome browser on a MacOS device in Sandton. If this was not you, please reset your executive credentials immediately.',
+            'alert',
+          )
+        "
+      >
+        <div class="notif-icon-wrap alert">
+          <i class="bx bxs-error-circle"></i>
+        </div>
+        <div class="notif-content">
+          <div class="notif-header">
+            <span class="notif-category">Security</span>
+            <span class="notif-time">Yesterday</span>
+          </div>
+          <p>New login detected from a Chrome browser on MacOS...</p>
+        </div>
+      </div>
+    </main>
+
+    <div id="notif-detail-modal" class="modal-overlay">
+      <div class="modal-content">
+        <button class="modal-close-btn" onclick="closeNotifModal()">
+          <i class="bx bx-x"></i>
+        </button>
+
+        <div
+          id="modal-notif-icon-box"
+          class="notif-icon-wrap"
+          style="
+            margin: 0 auto 20px;
+            width: 60px;
+            height: 60px;
+            font-size: 2rem;
+          "
+        >
+          <i id="modal-notif-icon"></i>
+        </div>
+
+        <h3
+          id="modal-notif-title"
+          style="
+            font-weight: 900;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+          "
+        ></h3>
+        <p
+          id="modal-notif-message"
+          style="
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+          "
+        ></p>
+
+        <div class="modal-actions">
+          <button
+            class="btn-secondary"
+            style="width: 100%; padding: 16px; border-radius: 16px"
+            onclick="closeNotifModal()"
+          >
+            Dismiss
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/global.js"></script>
+    <script>
+      function openNotifModal(title, message, type) {
+        const modal = document.getElementById("notif-detail-modal");
+        const titleEl = document.getElementById("modal-notif-title");
+        const messageEl = document.getElementById("modal-notif-message");
+        const iconBox = document.getElementById("modal-notif-icon-box");
+        const iconI = document.getElementById("modal-notif-icon");
+
+        titleEl.innerText = title;
+        messageEl.innerHTML = message.replace(
+          /\*\*(.*?)\*\*/g,
+          "<strong>$1</strong>",
+        );
+
+        // Icon Mapping
+        iconBox.className = "notif-icon-wrap " + type;
+        const icons = {
+          wash: "bx bxs-washer",
+          promo: "bx bxs-badge-check",
+          alert: "bx bxs-error-circle",
+        };
+        iconI.className = icons[type] || icons.alert;
+
+        modal.classList.add("active"); // Trigger CSS animation
+      }
+
+      function closeNotifModal() {
+        document
+          .getElementById("notif-detail-modal")
+          .classList.remove("active");
+      }
+    </script>
+    <script type="module" src="js/maintenance-check.js"></script>
+  </body>
+</html>

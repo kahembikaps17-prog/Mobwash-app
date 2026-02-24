@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MobWash | Order Archive</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css/global.css" />
+    <link rel="stylesheet" href="css/styles.css/orders.css" />
+  </head>
+  <body class="hub-body">
+    <header class="orders-header">
+      <a href="settings.html" class="glass-back"
+        ><i class="bx bx-chevron-left"></i
+      ></a>
+      <div class="header-title">
+        <h1>Order Archive</h1>
+        <p>Care History & Live Progress</p>
+      </div>
+    </header>
+
+    <main class="orders-container">
+      <h3 class="section-label">Live Care Cycles</h3>
+
+      <div class="order-progress-card active-order">
+        <div class="card-header">
+          <div class="service-tag wash">
+            <i class="bx bxs-bolt-circle"></i> #7721 • EXPRESS WASH
+          </div>
+          <div class="header-actions">
+            <button class="help-trigger" title="Get Help">
+              <i class="bx bx-help-circle"></i>
+            </button>
+            <div class="live-indicator"><span class="pulse"></span> LIVE</div>
+          </div>
+        </div>
+
+        <div class="progress-track-wrapper">
+          <div class="step completed">
+            <i class="bx bx-package"></i><span>Collected</span>
+          </div>
+          <div class="step current">
+            <i class="bx bx-water"></i><span>In Wash</span>
+          </div>
+          <div class="step">
+            <i class="bx bx-check-shield"></i><span>Quality</span>
+          </div>
+          <div class="step">
+            <i class="bx bxs-truck"></i><span>Return</span>
+          </div>
+
+          <div class="track-line">
+            <div class="track-fill" style="width: 35%"></div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <span class="item-summary">12kg Mixed Laundry</span>
+          <a href="track-order.html">
+            <button class="action-btn primary">Track Courier</button>
+          </a>
+        </div>
+      </div>
+
+      <h3 class="section-label">Past 30 Days</h3>
+
+      <div class="order-progress-card">
+        <div class="card-header">
+          <div class="service-tag lux">
+            <i class="bx bxs-diamond"></i> #7655 • LUX CARE
+          </div>
+          <div class="header-actions">
+            <button class="help-trigger">
+              <i class="bx bx-message-dots"></i>
+            </button>
+            <div class="order-date">Jan 28</div>
+          </div>
+        </div>
+
+        <div class="progress-track-wrapper">
+          <div class="step completed"><i class="bx bx-package"></i></div>
+          <div class="step completed"><i class="bx bx-water"></i></div>
+          <div class="step completed"><i class="bx bx-check-shield"></i></div>
+          <div class="step completed">
+            <i class="bx bxs-truck"></i><span>Delivered</span>
+          </div>
+
+          <div class="track-line">
+            <div class="track-fill" style="width: 100%"></div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <span class="item-summary">3x Suits, 1x Evening Gown</span>
+          <button class="action-btn">Repeat Order</button>
+        </div>
+      </div>
+    </main>
+    <script src="js/global.js"></script>
+    <script type="module" src="js/maintenance-check.js"></script>
+  </body>
+</html>
