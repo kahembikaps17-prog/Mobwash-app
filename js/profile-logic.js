@@ -5,11 +5,7 @@ import { collection, query, where, onSnapshot, orderBy, limit } from "https://ww
 auth.onAuthStateChanged((user) => {
   if (user) {
     // --- 1. GLOBAL UI UPDATES (Runs on both Profile & Express) ---
-    const nameEl = document.getElementById("user-display-name");
-    const avatarEl = document.getElementById("user-avatar-sm");
 
-    if (nameEl) nameEl.innerText = user.displayName || "Executive Member";
-    
     if (avatarEl) {
       if (user.photoURL) {
         avatarEl.innerHTML = `<img src="${user.photoURL}" style="width:100%; height:100%; border-radius:12px; object-fit:cover;">`;
