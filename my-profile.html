@@ -47,6 +47,7 @@
         <div class="avatar-container large">
           <div
             class="avatar-inner"
+            id="profile-avatar"
             style="
               background: var(--grad-lux);
               width: 100px;
@@ -61,7 +62,7 @@
               border: 4px solid var(--card-bg);
             "
           >
-            JS
+            MB
           </div>
           <div
             class="avatar-edit-badge"
@@ -79,27 +80,28 @@
             <i class="bx bxs-camera"></i>
           </div>
         </div>
+
         <h2 id="profile-name" style="margin-top: 15px; font-weight: 900">
-          Jonathan Smith
+          Add Display Name
         </h2>
-        <span class="id-tag">MEMBER ID: #7721</span>
+        <span class="id-tag" id="member-id-tag">MEMBER ID: Add Member ID</span>
       </section>
 
       <section class="profile-stats grid-2x2" style="margin-top: 30px">
         <div class="stat-box glass-card-blue">
-          <strong>42</strong>
+          <strong id="profile-orders">Add Orders</strong>
           <small>Orders</small>
         </div>
         <div class="stat-box">
-          <strong>Elite</strong>
+          <strong id="profile-tier">Add Tier</strong>
           <small>Tier</small>
         </div>
         <div class="stat-box">
-          <strong>1.2k</strong>
+          <strong id="profile-points">Add Points</strong>
           <small>Points</small>
         </div>
         <div class="stat-box glass-card-blue">
-          <strong>$0.00</strong>
+          <strong id="profile-wallet">Add Wallet Balance</strong>
           <small>Wallet</small>
         </div>
       </section>
@@ -109,21 +111,23 @@
         style="padding: 0 24px; margin-top: 30px"
       >
         <h3 class="section-label">Identity Logistics</h3>
+
         <div class="setting-item">
           <div class="setting-info">
             <i class="bx bxs-envelope blue-icon"></i>
             <div>
               <span>Email Address</span>
-              <small>j.smith@executive.com</small>
+              <small id="profile-email">Add Email Address</small>
             </div>
           </div>
         </div>
+
         <div class="setting-item">
           <div class="setting-info">
             <i class="bx bxs-map-pin gold-icon"></i>
             <div>
               <span>Primary Residence</span>
-              <small>123 Executive Way, Suite 400</small>
+              <small id="profile-residence">Add Primary Residence</small>
             </div>
           </div>
         </div>
@@ -141,7 +145,7 @@
       <div class="modal-content">
         <div class="modal-icon"><i class="bx bx-error-circle"></i></div>
         <h3>Secure Log Out?</h3>
-        <p>Are you sure you want to end your executive session?</p>
+        <p id="logout-message">Are you sure you want to end your session?</p>
         <div class="modal-actions">
           <button id="cancel-logout" class="btn-secondary">Dismiss</button>
           <button id="confirm-logout" class="btn-danger">End Session</button>
@@ -164,8 +168,9 @@
       >
     </nav>
 
+    <!-- ✅ IMPORTANT: session.js must load BEFORE global.js -->
+    <script type="module" src="js/session.js"></script>
     <script src="js/global.js"></script>
     <script type="module" src="js/maintenance-check.js"></script>
-    <script type="module" src="js/session.js"></script>
   </body>
 </html>

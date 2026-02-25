@@ -29,14 +29,25 @@
           <div class="setting-icon"><i class="bx bx-user-pin"></i></div>
           <div class="setting-info">
             <label>Display Name</label>
-            <input type="text" value="Jonathan Smith" />
+            <input
+              id="settings-name"
+              type="text"
+              value=""
+              placeholder="Add Display Name"
+            />
           </div>
         </div>
         <div class="setting-item">
           <div class="setting-icon"><i class="bx bx-envelope"></i></div>
           <div class="setting-info">
             <label>Email Address</label>
-            <input type="email" value="j.smith@executive.com" />
+            <input
+              id="settings-email"
+              type="email"
+              value=""
+              placeholder="Add Email Address"
+              readonly
+            />
           </div>
         </div>
       </div>
@@ -54,77 +65,81 @@
             id="theme-toggle"
             aria-label="Toggle Theme"
           >
-          <div class="toggle-track">
-            <div class="toggle-thumb"></div>
-           </div>
+            <div class="toggle-track">
+              <div class="toggle-thumb"></div>
+            </div>
           </button>
         </div>
-     <a href="notifications.html" class="setting-item notification-link">
-  <div class="setting-icon">
-    <i class="bx bxs-bell-ring gold-icon"></i>
-  </div>
-  <div class="setting-info">
-    <strong>Notifications</strong>
-    <span>Order updates & alerts</span>
-  </div>
-  <div class="setting-nav-hint">
-    <i class="bx bx-chevron-right"></i>
-  </div>
-</a>
 
-<a href="payments.html" style="text-decoration: none;">
-      <h3 class="settings-label">Billing</h3>
-      <div class="settings-group">
-        <div class="setting-item">
-          <div class="setting-icon"><i class="bx bx-credit-card"></i></div>
-          <div class="setting-info">
-            <strong>Payment Methods</strong>
-            <span>Visa ending in 4421</span>
+        <a href="notifications.html" class="setting-item notification-link">
+          <div class="setting-icon">
+            <i class="bx bxs-bell-ring gold-icon"></i>
           </div>
-          <i class="bx bx-chevron-right"></i>
-        </div>
-      </div>
-</a>
-      <h3 class="settings-label">Logistics</h3>
-      <div class="settings-group">
-        <div class="setting-item">
-          <div class="setting-icon"><i class="bx bx-map-pin"></i></div>
           <div class="setting-info">
-            <strong>Primary Residence</strong>
-            <span>122 Executive Towers, Sandton</span>
+            <strong>Notifications</strong>
+            <span>Order updates & alerts</span>
           </div>
-          <i class="bx bx-edit-alt" style="opacity: 0.5"></i>
-        </div>
-        <div class="setting-item">
-          <div class="setting-icon"><i class="bx bx-briefcase"></i></div>
-          <div class="setting-info">
-            <strong>Corporate Office</strong>
-            <span>Suite 405, Global Plaza</span>
+          <div class="setting-nav-hint">
+            <i class="bx bx-chevron-right"></i>
           </div>
-          <i class="bx bx-edit-alt" style="opacity: 0.5"></i>
-        </div>
-      </div>
-
-      <h3 class="settings-label">Archive</h3>
-      <div class="settings-group">
-        <a
-          href="orders.html"
-          class="setting-item"
-          style="text-decoration: none"
-        >
-          <div class="setting-icon"><i class="bx bx-history"></i></div>
-          <div class="setting-info">
-            <strong>Order History</strong>
-            <span>View all past 24 transactions</span>
-          </div>
-          <i class="bx bx-chevron-right"></i>
         </a>
+
+        <a href="payments.html" style="text-decoration: none">
+          <h3 class="settings-label">Billing</h3>
+          <div class="settings-group">
+            <div class="setting-item">
+              <div class="setting-icon"><i class="bx bx-credit-card"></i></div>
+              <div class="setting-info">
+                <strong>Payment Methods</strong>
+                <span id="payment-primary-method">Add Payment Method</span>
+              </div>
+              <i class="bx bx-chevron-right"></i>
+            </div>
+          </div>
+        </a>
+
+        <h3 class="settings-label">Logistics</h3>
+        <div class="settings-group">
+          <div class="setting-item">
+            <div class="setting-icon"><i class="bx bx-map-pin"></i></div>
+            <div class="setting-info">
+              <strong>Primary Residence</strong>
+              <span id="settings-residence">Add Primary Residence</span>
+            </div>
+            <i class="bx bx-edit-alt" style="opacity: 0.5"></i>
+          </div>
+          <div class="setting-item">
+            <div class="setting-icon"><i class="bx bx-briefcase"></i></div>
+            <div class="setting-info">
+              <strong>Corporate Office</strong>
+              <span id="settings-office">Add Corporate Office</span>
+            </div>
+            <i class="bx bx-edit-alt" style="opacity: 0.5"></i>
+          </div>
+        </div>
+
+        <h3 class="settings-label">Archive</h3>
+        <div class="settings-group">
+          <a
+            href="orders.html"
+            class="setting-item"
+            style="text-decoration: none"
+          >
+            <div class="setting-icon"><i class="bx bx-history"></i></div>
+            <div class="setting-info">
+              <strong>Order History</strong>
+              <span>View all past transactions</span>
+            </div>
+            <i class="bx bx-chevron-right"></i>
+          </a>
+        </div>
       </div>
     </main>
 
+    <!-- ✅ IMPORTANT: session.js must load BEFORE global.js -->
+    <script type="module" src="js/session.js"></script>
     <script src="js/global.js"></script>
     <script src="js/settings.js"></script>
     <script type="module" src="js/maintenance-check.js"></script>
   </body>
-  <script type="module" src="js/session.js"></script>
 </html>
