@@ -1,138 +1,104 @@
 /* ============================================================
-   MOBWASH SETTINGS LOGIC — EXECUTIVE INLINE EDITING (ENHANCED)
+   MOBWASH SETTINGS LOGIC — INLINE EDITING (SAFE)
+   - Does NOT restore defaults / localStorage
+   - session.js is the source of truth for loading values
    ============================================================ */
 
 const Settings = {
-    init() {
-        this.initEditableInputs();
-        this.initEditableSpans();
-        this.restoreSavedValues();
-    },
+  init() {
+    this.initEditableInputs();
+    this.initEditableSpans();
+  },
 
-    /* ----------------------------------------
-       INPUT FIELDS (Name, Email)
-    ---------------------------------------- */
-    initEditableInputs() {
-        document.querySelectorAll('.setting-info input').forEach(input => {
-            const label = input.previousElementSibling?.textContent;
-            if (!label) return;
+  // Inputs: just allow editing without snapping back to defaultValue
+  initEditableInputs() {
+    document.querySelectorAll(".setting-info input").forEach((input) => {
+      input.addEventListener("blur", () => {
+        // Do nothing here (saving happens in your firebase settings save logic later)
+        navigator.vibrate?.(10);
+      });
 
-            const key = `settings-${label}`;
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") input.blur();
+        if (e.key === "Escape") {
+          // revert to what session.js originally hydrated into the input
+          input.value = input.dataset.originalValue || input.value;
+          input.blur();
+        }
+      });
 
-            input.addEventListener('blur', () => {
-                if (!input.value.trim()) {
-                    input.value = localStorage.getItem(key) || input.defaultValue;
-                    return;
-                }
-                localStorage.setItem(key, input.value.trim());
-                navigator.vibrate?.(10);
-            });
+      // store original so ESC works
+      input.dataset.originalValue = input.value || "";
+    });
+  },
 
-            input.addEventListener('keydown', e => {
-                if (e.key === 'Enter') input.blur();
-                if (e.key === 'Escape') {
-                    input.value = localStorage.getItem(key) || input.defaultValue;
-                    input.blur();
-                }
-            });
-        });
-    },
+  // Span -> input edit (no localStorage writes)
+  initEditableSpans() {
+    document.querySelectorAll(".setting-item").forEach((item) => {
+      const editIcon = item.querySelector(".bx-edit-alt");
+      const span = item.querySelector(".setting-info span");
+      const title = item.querySelector(".setting-info strong");
 
-    /* ----------------------------------------
-       INLINE SPAN → INPUT EDITING
-    ---------------------------------------- */
-    initEditableSpans() {
-        document.querySelectorAll('.setting-item').forEach(item => {
-            const editIcon = item.querySelector('.bx-edit-alt');
-            const span = item.querySelector('.setting-info span');
-            const title = item.querySelector('.setting-info strong');
+      if (!editIcon || !span || !title) return;
 
-            if (!editIcon || !span || !title) return;
+      editIcon.addEventListener("click", (e) => {
+        e.stopPropagation();
+        this.makeSpanEditable(span, editIcon);
+      });
+    });
+  },
 
-            const key = `settings-${title.textContent}`;
+  makeSpanEditable(span, icon) {
+    if (span.dataset.editing) return;
+    span.dataset.editing = "true";
 
-            editIcon.addEventListener('click', e => {
-                e.stopPropagation();
-                this.makeSpanEditable(span, editIcon, key);
-            });
-        });
-    },
+    const originalValue = span.textContent.trim();
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = originalValue;
+    input.style.width = "100%";
+    input.style.fontSize = "0.85rem";
+    input.style.fontWeight = "600";
 
-    makeSpanEditable(span, icon, storageKey) {
-        if (span.dataset.editing) return;
-        span.dataset.editing = 'true';
+    icon.classList.replace("bx-edit-alt", "bx-check");
+    icon.style.opacity = "1";
 
-        const originalValue = span.textContent.trim();
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.value = originalValue;
-        input.style.width = '100%';
-        input.style.fontSize = '0.85rem';
-        input.style.fontWeight = '600';
+    span.replaceWith(input);
+    input.focus();
 
-        // Icon → checkmark
-        icon.classList.replace('bx-edit-alt', 'bx-check');
-        icon.style.opacity = '1';
+    const save = () => {
+      const value = input.value.trim() || originalValue;
 
-        span.replaceWith(input);
-        input.focus();
+      const newSpan = document.createElement("span");
+      newSpan.textContent = value;
 
-        const save = () => {
-            const value = input.value.trim() || originalValue;
+      input.replaceWith(newSpan);
 
-            const newSpan = document.createElement('span');
-            newSpan.textContent = value;
-            delete newSpan.dataset?.editing;
+      icon.classList.replace("bx-check", "bx-edit-alt");
+      icon.style.opacity = "0.5";
+      navigator.vibrate?.(10);
 
-            localStorage.setItem(storageKey, value);
-            input.replaceWith(newSpan);
+      // NOTE: saving to Firestore/Auth should be handled by a dedicated firebase save handler
+      // This file now only handles the UI editing.
+    };
 
-            icon.classList.replace('bx-check', 'bx-edit-alt');
-            icon.style.opacity = '0.5';
-            navigator.vibrate?.(10);
-        };
+    const cancel = () => {
+      const newSpan = document.createElement("span");
+      newSpan.textContent = originalValue;
+      input.replaceWith(newSpan);
 
-        const cancel = () => {
-            const newSpan = document.createElement('span');
-            newSpan.textContent = originalValue;
-            input.replaceWith(newSpan);
+      icon.classList.replace("bx-check", "bx-edit-alt");
+      icon.style.opacity = "0.5";
+    };
 
-            icon.classList.replace('bx-check', 'bx-edit-alt');
-            icon.style.opacity = '0.5';
-        };
-
-        input.addEventListener('blur', save);
-        input.addEventListener('keydown', e => {
-            if (e.key === 'Enter') input.blur();
-            if (e.key === 'Escape') cancel();
-        });
-    },
-
-    /* ----------------------------------------
-       RESTORE SAVED VALUES
-    ---------------------------------------- */
-    restoreSavedValues() {
-        // Restore inputs
-        document.querySelectorAll('.setting-info input').forEach(input => {
-            const label = input.previousElementSibling?.textContent;
-            if (!label) return;
-
-            const saved = localStorage.getItem(`settings-${label}`);
-            if (saved) input.value = saved;
-        });
-
-        // Restore spans
-        document.querySelectorAll('.setting-info strong').forEach(title => {
-            const span = title.nextElementSibling;
-            if (!span) return;
-
-            const saved = localStorage.getItem(`settings-${title.textContent}`);
-            if (saved) span.textContent = saved;
-        });
-    }
+    input.addEventListener("blur", save);
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") input.blur();
+      if (e.key === "Escape") cancel();
+    });
+  },
 };
 
-/* --- INIT --- */
-document.addEventListener('DOMContentLoaded', () => {
-    Settings.init();
+document.addEventListener("DOMContentLoaded", () => {
+  Settings.init();
 });
