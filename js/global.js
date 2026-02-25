@@ -72,12 +72,25 @@ const MobWash = {
 
     if (cancel) cancel.onclick = () => (modal.style.display = "none");
 
+    // ✅ UPDATED: real sign-out if session.js provides it
     if (confirm)
-      confirm.onclick = () => {
+      confirm.onclick = async () => {
         this.haptic([30, 50, 30]);
         confirm.innerHTML =
           '<i class="bx bx-loader-alt bx-spin"></i> Ending Session...';
-        setTimeout(() => (window.location.href = "index.html"), 1000);
+
+        try {
+          // If session.js is loaded, it exposes a real firebase signout
+          if (window.MobWashLogout) {
+            await window.MobWashLogout();
+            return;
+          }
+        } catch (err) {
+          console.error("Logout failed:", err);
+        }
+
+        // Fallback (old behavior)
+        setTimeout(() => (window.location.href = "index.html"), 800);
       };
   },
 
