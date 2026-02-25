@@ -36,12 +36,12 @@ registerForm.addEventListener('submit', async (e) => {
         window.location.href = "profile.html";
 
     } catch (error) {
-        console.error("Registration failed:", error);
+        console.error("Registration failed FULL ERROR:", error);
+        alert(`Signup failed ${error.code}\n${error.message}`);
         btn.innerHTML = "Error. Try Again";
         btn.style.background = "#dc2626";
         btn.disabled = false;
         
-        // Brief alert for the user
-        alert(error.message);
+        
     }
 });
