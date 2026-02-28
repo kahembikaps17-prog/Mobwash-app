@@ -890,3 +890,77 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   min-height: auto;
   padding-bottom: 20px;
 }
+
+/* --- ITEM SELECTION STYLING --- */
+
+.customize-trigger {
+  background: rgba(14, 165, 233, 0.1);
+  border: 1px solid var(--a);
+  color: var(--a);
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 10px;
+  width: fit-content;
+  transition: 0.3s;
+}
+
+.customize-trigger:hover {
+  background: var(--a);
+  color: white;
+}
+
+.item-selection-panel {
+  display: none; /* Hidden by default */
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed var(--basket-border);
+}
+
+/* Expansion Logic */
+.express-basket-card.expanded {
+  height: auto;
+  min-height: 350px;
+}
+
+.express-basket-card.expanded .item-selection-panel {
+  display: grid;
+}
+
+/* Item Chips */
+.item-chip {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: 0.3s;
+}
+
+.item-chip span {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--basket-text-soft);
+}
+
+.item-chip input[type="checkbox"] {
+  accent-color: var(--a);
+}
+
+.item-chip:has(input:checked) {
+  border-color: var(--a);
+  background: rgba(14, 165, 233, 0.1);
+}
+
+.item-chip:has(input:checked) span {
+  color: var(--a);
+  font-weight: 800;
+}
