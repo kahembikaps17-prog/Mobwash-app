@@ -10,21 +10,85 @@
     />
     <link rel="stylesheet" href="css/styles.css/global.css" />
     <link rel="stylesheet" href="css/styles.css/subscribe.css" />
+    <style>
+      /* Smooth View Transitions */
+      #plans-selection-view,
+      #plan-detail-view {
+        transition:
+          opacity 0.4s ease,
+          transform 0.4s ease;
+      }
+      .hidden {
+        display: none !important;
+        opacity: 0;
+      }
+
+      /* Detail View Specific Styling */
+      .detail-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 35px;
+        padding: 30px 24px;
+        margin-top: 20px;
+        backdrop-filter: blur(15px);
+      }
+      .spec-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .spec-label {
+        opacity: 0.6;
+        font-size: 11px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .spec-value {
+        font-weight: 900;
+        color: var(--a);
+        font-size: 14px;
+      }
+
+      .price-footer {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 2px solid var(--a);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .confirm-btn {
+        width: 100%;
+        padding: 20px;
+        margin-top: 25px;
+        border-radius: 20px;
+        background: var(--a);
+        color: white;
+        border: none;
+        font-weight: 950;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+      }
+    </style>
   </head>
   <body class="hub-body">
     <header class="executive-header">
-      <a href="profile.html" class="glass-back"
-        ><i class="bx bx-chevron-left"></i
-      ></a>
+      <button onclick="goBack()" class="glass-back">
+        <i class="bx bx-chevron-left"></i>
+      </button>
       <div class="header-intro">
-        <div class="page-badge">FABRIC SELECTION</div>
-        <h1>Valet Care Plans</h1>
-        <p>Premium laundry care tailored for your lifestyle.</p>
+        <div class="page-badge" id="view-badge">FABRIC SELECTION</div>
+        <h1 id="view-title">Valet Care Plans</h1>
+        <p id="view-desc">Premium laundry care tailored for your lifestyle.</p>
       </div>
     </header>
 
     <main class="subscribe-container">
-      <div class="plans-grid-executive">
+      <div id="plans-selection-view" class="plans-grid-executive">
         <div class="plan-card small-tier">
           <div class="live-counter">
             <span class="pulse-dot"></span> 48 Active
@@ -36,11 +100,12 @@
             <li><i class="bx bx-check-double"></i> Up to 5kg</li>
             <li><i class="bx bx-check-double"></i> Signature Fold</li>
           </ul>
-          <button class="select-btn">Select Tier</button>
+          <button class="select-btn" onclick="showDetails('small')">
+            Select Tier
+          </button>
         </div>
 
         <div class="plan-card elite-platinum">
-          <div class="platinum-glass-shine"></div>
           <div class="tier-badge">Family Elite</div>
           <div class="live-counter">
             <span class="pulse-dot platinum"></span> 24 Active
@@ -52,7 +117,12 @@
             <li><i class="bx bx-check-double"></i> 25kg Capacity</li>
             <li><i class="bx bx-check-double"></i> Full Valet Service</li>
           </ul>
-          <button class="select-btn platinum-btn">Select Platinum</button>
+          <button
+            class="select-btn platinum-btn"
+            onclick="showDetails('large')"
+          >
+            Select Platinum
+          </button>
         </div>
 
         <div class="plan-card featured">
@@ -68,15 +138,72 @@
             <li><i class="bx bx-check-double"></i> Wash, Fold & Steam</li>
             <li><i class="bx bx-check-double"></i> Priority Pickup</li>
           </ul>
-          <button class="select-btn featured-btn">Secure Executive Plan</button>
+          <button
+            class="select-btn featured-btn"
+            onclick="showDetails('medium')"
+          >
+            Secure Executive Plan
+          </button>
+        </div>
+      </div>
+
+      <div id="plan-detail-view" class="hidden">
+        <div class="detail-card">
+          <div class="spec-list">
+            <div class="spec-item">
+              <span class="spec-label">Capacity</span
+              ><span id="det-cap" class="spec-value">-</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Frequency</span
+              ><span class="spec-value">Weekly Valet</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Service</span
+              ><span id="det-serv" class="spec-value">-</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Turnaround</span
+              ><span class="spec-value">24-48 Hours</span>
+            </div>
+          </div>
+
+          <p
+            id="det-desc"
+            style="
+              font-size: 13px;
+              line-height: 1.6;
+              opacity: 0.7;
+              margin: 20px 0;
+            "
+          >
+            Description loads here...
+          </p>
+
+          <div class="price-footer">
+            <span
+              style="
+                font-weight: 900;
+                font-size: 14px;
+                text-transform: uppercase;
+              "
+              >Total Weekly</span
+            >
+            <span
+              id="det-price"
+              style="font-size: 24px; font-weight: 950; color: var(--text-main)"
+              >K0</span
+            >
+          </div>
+
+          <button class="confirm-btn" id="pay-trigger">Confirm & Pay</button>
         </div>
       </div>
     </main>
 
     <a href="https://wa.me/260767926215" class="executive-concierge">
       <div class="concierge-inner">
-        <i class="bx bxl-whatsapp"></i>
-        <span>Concierge</span>
+        <i class="bx bxl-whatsapp"></i><span>Concierge</span>
       </div>
     </a>
 
@@ -94,7 +221,78 @@
         ><i class="bx bxs-user-circle"></i><span>Profile</span></a
       >
     </nav>
-    <script src="js/global.js"></script>
-    <script type="module" src="js/maintenance-check.js"></script>
+
+    <script>
+      const plans = {
+        small: {
+          title: "Small Basket",
+          price: "K150",
+          cap: "5kg Max",
+          serv: "Signature Fold",
+          desc: "Perfect for busy professionals. Includes eco-friendly washing and precision folding.",
+        },
+        medium: {
+          title: "Medium Basket",
+          price: "K250",
+          cap: "12kg Max",
+          serv: "Wash, Fold & Steam",
+          desc: "Our most popular choice. Includes light steaming to ensure your clothes are ready to wear.",
+        },
+        large: {
+          title: "Large Basket",
+          price: "K400",
+          cap: "25kg Max",
+          serv: "Full Valet Service",
+          desc: "Ultimate care for families. Handles heavy linens, duvets, and premium fabric treatments.",
+        },
+      };
+
+      function showDetails(tier) {
+        const data = plans[tier];
+        // Hide Grid, Show Details
+        document.getElementById("plans-selection-view").classList.add("hidden");
+        document.getElementById("plan-detail-view").classList.remove("hidden");
+
+        // Update Text
+        document.getElementById("view-title").innerText = "Review Plan";
+        document.getElementById("view-desc").innerText =
+          `Confirming your ${data.title} subscription.`;
+        document.getElementById("view-badge").innerText = "VALET SUMMARY";
+
+        document.getElementById("det-cap").innerText = data.cap;
+        document.getElementById("det-serv").innerText = data.serv;
+        document.getElementById("det-desc").innerText = data.desc;
+        document.getElementById("det-price").innerText = data.price;
+
+        // Scroll to top
+        window.scrollTo(0, 0);
+      }
+
+      function goBack() {
+        const detailView = document.getElementById("plan-detail-view");
+        if (!detailView.classList.contains("hidden")) {
+          // Return to Grid
+          detailView.classList.add("hidden");
+          document
+            .getElementById("plans-selection-view")
+            .classList.remove("hidden");
+          document.getElementById("view-title").innerText = "Valet Care Plans";
+          document.getElementById("view-desc").innerText =
+            "Premium laundry care tailored for your lifestyle.";
+          document.getElementById("view-badge").innerText = "FABRIC SELECTION";
+        } else {
+          // Actually go back to profile
+          window.location.href = "profile.html";
+        }
+      }
+
+      document
+        .getElementById("pay-trigger")
+        .addEventListener("click", function () {
+          this.innerHTML =
+            "<i class='bx bx-loader-alt bx-spin'></i> Securing Connection...";
+          // We will hook the payment API here next
+        });
+    </script>
   </body>
 </html>
