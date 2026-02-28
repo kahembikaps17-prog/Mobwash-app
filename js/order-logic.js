@@ -1,14 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. BASE PRICES (For baskets without custom selections like Essentials/Footwear)
+  // 1. BASE PRICES
   const basePrices = {
     essentials: 97.99,
-    business: 0, // Now starts at 0, builds based on selection
-    tech: 0,     // Now starts at 0, builds based on selection
-    linen: 0,    // Now starts at 0, builds based on selection
+    business: 0, 
+    tech: 0,     
+    linen: 0,    
     footwear: 34.99,
   };
 
-  // 2. INDIVIDUAL ITEM PRICES (Edit these values to match your business!)
+  // 2. INDIVIDUAL ITEM PRICES
   const itemPrices = {
     "Suit": 85.00,
     "Blazer": 45.00,
@@ -47,12 +47,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const qtyDisplay = card.querySelector(".qty-display");
     const plusBtn = card.querySelector(".plus");
     const minusBtn = card.querySelector(".minus");
-    const pricePill = card.querySelector(".price-pill");
     
-    // Listen for checkbox changes (User selecting specific items)
+    // Listen for custom item selections
     card.querySelectorAll('input[type="checkbox"]').forEach(check => {
         check.addEventListener('change', () => {
-            updateCardPriceDisplay(card, type, pricePill);
+            updateCardPriceDisplay(card, type);
             calculateTotal();
         });
     });
@@ -71,27 +70,52 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Initialize display prices on load
-    updateCardPriceDisplay(card, type, pricePill);
+    // Initialize display on load
+    updateCardPriceDisplay(card, type);
   });
 
-  // Calculates the price for a SINGLE basket based on what is checked
+  // Calculates unit cost based on checked items
   function getBasketUnitCost(card, type) {
     const checkedItems = Array.from(card.querySelectorAll('input[type="checkbox"]:checked'));
-    
-    // If it's a customizable basket AND items are selected, sum them up
     if (checkedItems.length > 0) {
         return checkedItems.reduce((sum, checkbox) => sum + (itemPrices[checkbox.value] || 0), 0);
     } 
-    // Otherwise, fall back to the base price
     return basePrices[type];
   }
 
-  // Updates the visual "K..." pill on the card itself
-  function updateCardPriceDisplay(card, type, pricePill) {
-      if(!pricePill) return;
-      const currentUnitCost = getBasketUnitCost(card, type);
-      pricePill.innerText = `K${currentUnitCost.toFixed(2)}`;
+  // DYNAMIC PRICE PILL LOGIC
+  function updateCardPriceDisplay(card, type) {
+    let pricePill = card.querySelector(".price-pill");
+    const checkboxes = card.querySelectorAll('input[type="checkbox"]');
+    const isCustomBasket = checkboxes.length > 0;
+
+    // If the price pill was deleted from HTML, create it dynamically
+    if (!pricePill) {
+      pricePill = document.createElement("div");
+      pricePill.className = "price-pill";
+      // Inject it right into the basket-header
+      const header = card.querySelector(".basket-header");
+      if (header) header.appendChild(pricePill);
+    }
+
+    if (isCustomBasket) {
+      const checkedItems = Array.from(card.querySelectorAll('input[type="checkbox"]:checked'));
+      
+      if (checkedItems.length > 0) {
+        const totalCost = getBasketUnitCost(card, type);
+        // Show item name if 1 is selected, or "X Items" if multiple
+        const labelText = checkedItems.length === 1 ? checkedItems[0].value : `${checkedItems.length} Items`;
+        
+        pricePill.innerText = `${labelText} • K${totalCost.toFixed(2)}`;
+        pricePill.style.display = "block"; // Reveal the pill
+      } else {
+        pricePill.style.display = "none"; // Hide if nothing is checked
+      }
+    } else {
+      // Essentials & Footwear stay visible permanently
+      pricePill.innerText = `K${basePrices[type].toFixed(2)}`;
+      pricePill.style.display = "block";
+    }
   }
 
   // =========================
@@ -108,7 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
         
         total += count * unitCost;
         
-        // Build the summary string
         const selectedItemNames = Array.from(card.querySelectorAll('input[type="checkbox"]:checked'))
                                    .map(cb => cb.value);
         
@@ -124,5 +147,5 @@ document.addEventListener("DOMContentLoaded", () => {
     summaryItems.innerText = itemsSummary.length > 0 ? itemsSummary.join(" | ") : "None Selected";
   }
 
-  // (Your existing Success Overlay and Validation code remains here...)
+  // (Your existing orderBtn click listener and resetOrder logic remain here...)
 });
