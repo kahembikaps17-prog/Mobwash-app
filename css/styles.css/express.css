@@ -840,3 +840,53 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   transform: scale(1.03);
   box-shadow: 0 14px 35px rgba(14, 165, 233, 0.25);
 }
+/* --- MOBILE FIT UPDATES --- */
+
+/* Fix for "Wash & Press" clipping */
+.selection-grid {
+  display: flex; /* Changed from grid to flex for better shrinking */
+  gap: 10px;
+  margin: 20px 15px;
+}
+
+.service-tile {
+  flex: 1;
+  min-width: 0; /* Allows flex items to shrink below content size */
+}
+
+.tile-ui {
+  padding: 15px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.tile-ui strong {
+  font-size: clamp(12px, 3.5vw, 14px);
+  white-space: nowrap; /* Keeps text on one line */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Fix for Logistics/Time clipping at the bottom */
+.scheduling-container {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr; /* Gives more room to Date, less to Time */
+  gap: 8px;
+}
+
+.luxury-field {
+  padding: 12px 10px; /* Slimmer padding for mobile */
+}
+
+.field-content input {
+  font-size: 14px; /* Slightly smaller for better fit */
+}
+
+/* Ensure expanded cards don't break layout */
+.express-basket-card.expanded {
+  min-height: auto;
+  padding-bottom: 20px;
+}

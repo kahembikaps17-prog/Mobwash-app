@@ -36,12 +36,21 @@ registerForm.addEventListener('submit', async (e) => {
         window.location.href = "profile.html";
 
     } catch (error) {
-        console.error("Registration failed FULL ERROR:", error);
-        alert(`Signup failed ${error.code}\n${error.message}`);
-        btn.innerHTML = "Error. Try Again";
-        btn.style.background = "#dc2626";
-        btn.disabled = false;
-        
-        
+  console.error("Registration failed:", error);
+
+  const code = error?.code || "";
+  let msg = "Something went wrong. Please try again.";
+
+  if (code === "auth/email-already-in-use") msg = "This email already has an account. Please log in.";
+  if (code === "auth/weak-password") msg = "Password is too weak. Use at least 6 characters.";
+  if (code === "auth/invalid-email") msg = "Please enter a valid email address.";
+  if (code === "auth/network-request-failed") msg = "Network issue. Check your internet and try again.";
+
+  btn.innerHTML = "Error. Try Again";
+  btn.style.background = "#dc2626";
+  btn.disabled = false;
+
+  alert(msg);
+}
     }
-});
+);

@@ -90,105 +90,110 @@
           </div>
         </div>
 
-        <div class="express-basket-card business">
-          <div class="basket-icon-circle">
-            <i class="bx bx-briefcase-alt-2"></i>
-          </div>
-          <div class="basket-details">
-            <div class="basket-header">
-              <div class="title-stack">
-                <strong class="basket-title">Business</strong>
-                <div class="sliding-meta-container">
-                  <div class="sliding-track">
-                    <span class="basket-meta"
-                      >Suits • Blouses • Trousers • Skirts • Blazers • Dress
-                      shirts • Ties • Waistcoats • Cufflinks • Silk Scarves •
-                      Pocket Squares • Office Attire • Formal Wear • Dinner
-                      Jackets • Tailored Items</span
-                    >
-                    <span class="basket-meta"
-                      >Dress Shirts • Blouses • Trousers • Skirts • Blazers •
-                      Suits • Ties • Waistcoats • Cufflinks • Silk Scarves •
-                      Pocket Squares • Office Attire • Formal Wear • Dinner
-                      Jackets • Tailored Items</span
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="price-pill">K129.99</div>
-            </div>
-            <div class="qty-control">
-              <button class="action-btn minus">-</button>
-              <span class="qty-display">0</span>
-              <button class="action-btn plus">+</button>
-            </div>
+ <div class="express-basket-card business">
+  <div class="basket-icon-circle"><i class="bx bx-briefcase-alt-2"></i></div>
+  <div class="basket-details">
+    <div class="basket-header">
+      <div class="title-stack">
+        <strong class="basket-title">Business</strong>
+        <div class="sliding-meta-container">
+          <div class="sliding-track">
+            <span class="basket-meta">Suits • Blouses • Trousers • Skirts • Blazers • Dress shirts • Ties</span>
+            <span class="basket-meta">Suits • Blouses • Trousers • Skirts • Blazers • Dress shirts • Ties</span>
           </div>
         </div>
+      </div>
+      <div class="price-pill">K129.99</div>
+    </div>
 
-        <div class="express-basket-card tech">
-          <div class="basket-icon-circle"><i class="bx bx-run"></i></div>
-          <div class="basket-details">
-            <div class="basket-header">
-              <div class="title-stack">
-                <strong class="basket-title">Tech & Active</strong>
-                <div class="sliding-meta-container">
-                  <div class="sliding-track">
-                    <span class="basket-meta"
-                      >Gore-Tex • Dry-Fit • Compression • Thermal Layers •
-                      Windbreakers • Base Layers • Yoga Pants • Cycling Jerseys
-                      • Running Shorts • Swimwear • Tracksuits • Fleece • Puffer
-                      Vests • Sports Bras • Leggings</span
-                    >
-                    <span class="basket-meta"
-                      >Gore-Tex • Dry-Fit • Compression • Thermal Layers •
-                      Windbreakers • Base Layers • Yoga Pants • Cycling Jerseys
-                      • Running Shorts • Swimwear • Tracksuits • Fleece • Puffer
-                      Vests • Sports Bras • Leggings</span
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="price-pill">K85.00</div>
-            </div>
-            <div class="qty-control">
-              <button class="action-btn minus">-</button>
-              <span class="qty-display">0</span>
-              <button class="action-btn plus">+</button>
-            </div>
-          </div>
-        </div>
+    <button class="customize-trigger" onclick="this.parentElement.parentElement.classList.toggle('expanded')">
+      <i class="bx bx-list-plus"></i> Select Items
+    </button>
 
-        <div class="express-basket-card linen">
-          <div class="basket-icon-circle"><i class="bx bx-bed"></i></div>
-          <div class="basket-details">
-            <div class="basket-header">
-              <div class="title-stack">
-                <strong class="basket-title">Heavyweight & Home</strong>
-                <div class="sliding-meta-container">
-                  <div class="sliding-track">
-                    <span class="basket-meta"
-                      >Duvet Covers • Curtains • Cushion Covers • Blankets •
-                      Bombers • Carpets • Aprons • Bathrobes • Rugs • Microfiber
-                      • Upholstery • Quilts • Office mats • Valances • Bath Mats
-                    </span>
-                    <span class="basket-meta"
-                      >Duvet Covers • Curtains • Cushion Covers • Blankets •
-                      Throws • Aprons • Bathrobes • Luxury Linen • Heavy Jackets
-                      • Upholstery • Quilts • Valances • Bath Mats •
-                      Tablecloths</span
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="price-pill">K145.00</div>
-            </div>
-            <div class="qty-control">
-              <button class="action-btn minus">-</button>
-              <span class="qty-display">0</span>
-              <button class="action-btn plus">+</button>
-            </div>
+    <div class="item-selection-panel">
+      <label class="item-chip"><input type="checkbox" value="Suit"> <span>Full Suit</span></label>
+      <label class="item-chip"><input type="checkbox" value="Blazer"> <span>Blazer</span></label>
+      <label class="item-chip"><input type="checkbox" value="Dress Shirt"> <span>Dress Shirt</span></label>
+      <label class="item-chip"><input type="checkbox" value="Silk Scarf"> <span>Silk Scarf</span></label>
+    </div>
+
+    <div class="qty-control">
+      <button class="action-btn minus">-</button>
+      <span class="qty-display">0</span>
+      <button class="action-btn plus">+</button>
+    </div>
+  </div>
+</div>
+
+<div class="express-basket-card tech">
+  <div class="basket-icon-circle"><i class="bx bx-run"></i></div>
+  <div class="basket-details">
+    <div class="basket-header">
+      <div class="title-stack">
+        <strong class="basket-title">Tech & Active</strong>
+        <div class="sliding-meta-container">
+          <div class="sliding-track">
+            <span class="basket-meta">Gore-Tex • Dry-Fit • Compression • Yoga Pants • Cycling Jerseys</span>
+            <span class="basket-meta">Gore-Tex • Dry-Fit • Compression • Yoga Pants • Cycling Jerseys</span>
           </div>
         </div>
+      </div>
+      <div class="price-pill">K85.00</div>
+    </div>
+
+    <button class="customize-trigger" onclick="this.parentElement.parentElement.classList.toggle('expanded')">
+      <i class="bx bx-dumbbell"></i> Configure Kit
+    </button>
+
+    <div class="item-selection-panel">
+      <label class="item-chip"><input type="checkbox" value="Gym Kit"> <span>Full Gym Kit</span></label>
+      <label class="item-chip"><input type="checkbox" value="Sports Attire"> <span>Sports Attire</span></label>
+      <label class="item-chip"><input type="checkbox" value="Compression"> <span>Compression Gear</span></label>
+      <label class="item-chip"><input type="checkbox" value="Windbreaker"> <span>Windbreaker</span></label>
+    </div>
+
+    <div class="qty-control">
+      <button class="action-btn minus">-</button>
+      <span class="qty-display">0</span>
+      <button class="action-btn plus">+</button>
+    </div>
+  </div>
+</div>
+
+<div class="express-basket-card linen">
+  <div class="basket-icon-circle"><i class="bx bx-bed"></i></div>
+  <div class="basket-details">
+    <div class="basket-header">
+      <div class="title-stack">
+        <strong class="basket-title">Heavyweight & Home</strong>
+        <div class="sliding-meta-container">
+          <div class="sliding-track">
+            <span class="basket-meta">Duvets • Curtains • Cushion Covers • Blankets • Rugs • Quilts</span>
+            <span class="basket-meta">Duvets • Curtains • Cushion Covers • Blankets • Rugs • Quilts</span>
+          </div>
+        </div>
+      </div>
+      <div class="price-pill">K145.00</div>
+    </div>
+
+    <button class="customize-trigger" onclick="this.parentElement.parentElement.classList.toggle('expanded')">
+      <i class="bx bx-home-alt"></i> Select Home Items
+    </button>
+
+    <div class="item-selection-panel">
+      <label class="item-chip"><input type="checkbox" value="Duvet"> <span>Duvet</span></label>
+      <label class="item-chip"><input type="checkbox" value="Blanket"> <span>Blanket</span></label>
+      <label class="item-chip"><input type="checkbox" value="Curtains"> <span>Curtains</span></label>
+      <label class="item-chip"><input type="checkbox" value="Cushions"> <span>Cushions</span></label>
+    </div>
+
+    <div class="qty-control">
+      <button class="action-btn minus">-</button>
+      <span class="qty-display">0</span>
+      <button class="action-btn plus">+</button>
+    </div>
+  </div>
+</div>
 
         <div class="express-basket-card footwear">
           <div class="basket-icon-circle"><i class="bx bxs-invader"></i></div>
