@@ -10,6 +10,7 @@
     />
     <link rel="stylesheet" href="css/styles.css/global.css" />
     <link rel="stylesheet" href="css/styles.css/subscribe.css" />
+    <link rel="stylesheet" href="css/styles.css/payments.css" />
     <style>
       /* Smooth View Transitions */
       #plans-selection-view,
@@ -73,7 +74,18 @@
         cursor: pointer;
         box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
       }
+      /* Checkout Flow Specifics */
+      #checkout-modal .hidden {
+        display: none !important;
+      }
+      #checkout-modal .sheet-header {
+        position: relative;
+      }
+      #checkout-modal .sheet-body {
+        transition: 0.3s;
+      }
     </style>
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
   </head>
   <body class="hub-body">
     <header class="executive-header">
@@ -207,6 +219,206 @@
       </div>
     </a>
 
+    <div class="modal-overlay" id="checkout-modal">
+      <div class="bottom-sheet" id="checkout-sheet">
+        <div class="sheet-handle"></div>
+
+        <div id="checkout-step-select">
+          <div class="sheet-header">
+            <h2>Complete Payment</h2>
+            <p>
+              Select a method to pay
+              <strong id="checkout-amount-display" style="color: var(--a)"
+                >K0</strong
+              >
+            </p>
+          </div>
+
+          <div class="sheet-body">
+            <label class="card-label">Linked Accounts</label>
+
+            <div
+              class="momo-card airtel is-linked"
+              onclick="processLinkedPayment('Airtel Money', '442')"
+            >
+              <div class="momo-logo" style="background: #ff0000">Airtel</div>
+              <div class="momo-info">
+                <strong>Airtel Money</strong>
+                <span>Secured • ••• 442</span>
+              </div>
+              <i
+                class="bx bx-chevron-right status-icon"
+                style="color: var(--text-main)"
+              ></i>
+            </div>
+
+            <div
+              class="luxury-credit-card is-linked"
+              style="
+                height: auto;
+                padding: 15px;
+                flex-direction: row;
+                gap: 15px;
+                margin-top: 10px;
+              "
+              onclick="processLinkedPayment('Visa Card', '4421')"
+            >
+              <div class="momo-logo" style="background: #1e40af">
+                <i class="bx bxl-visa" style="font-size: 24px"></i>
+              </div>
+              <div class="momo-info" style="text-align: left">
+                <strong>Visa Premium</strong>
+                <span style="opacity: 0.8">Expires 12/28 • ••• 4421</span>
+              </div>
+              <i class="bx bx-chevron-right status-icon"></i>
+            </div>
+
+            <button
+              class="cancel-btn"
+              onclick="showAlternativeSelection()"
+              style="
+                margin-top: 20px;
+                border: 1px dashed var(--border-color);
+                border-radius: 15px;
+              "
+            >
+              + Use Alternative Method
+            </button>
+          </div>
+        </div>
+
+        <div id="checkout-step-alt" class="hidden">
+          <div class="sheet-header">
+            <button
+              onclick="backToMethods()"
+              style="
+                position: absolute;
+                left: 20px;
+                top: 20px;
+                background: none;
+                border: none;
+                color: var(--text-main);
+                font-size: 24px;
+              "
+            >
+              <i class="bx bx-left-arrow-alt"></i>
+            </button>
+            <h2>Select Provider</h2>
+            <p>Choose an operator for a direct prompt</p>
+          </div>
+          <div class="momo-grid">
+            <div class="momo-card mtn" onclick="enterNewDetails('MTN')">
+              <div class="momo-logo" style="background: #ffcc00; color: #000">
+                MTN
+              </div>
+              <div class="momo-info"><strong>MTN MoMo</strong></div>
+            </div>
+            <div class="momo-card zamtel" onclick="enterNewDetails('Zamtel')">
+              <div class="momo-logo" style="background: #009933">Zamtel</div>
+              <div class="momo-info"><strong>Zamtel Kwacha</strong></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="checkout-step-details" class="hidden">
+          <div class="sheet-header">
+            <button
+              onclick="showAlternativeSelection()"
+              style="
+                position: absolute;
+                left: 20px;
+                top: 20px;
+                background: none;
+                border: none;
+                color: var(--text-main);
+                font-size: 24px;
+              "
+            >
+              <i class="bx bx-left-arrow-alt"></i>
+            </button>
+            <div class="momo-logo-small" id="new-provider-logo"></div>
+            <h2 id="new-provider-title">Enter Number</h2>
+          </div>
+          <div class="sheet-body">
+            <div class="luxury-field">
+              <div class="field-content">
+                <label>Mobile Number</label>
+                <input
+                  type="tel"
+                  id="new-checkout-number"
+                  placeholder="09X XXX XXXX"
+                  maxlength="10"
+                />
+              </div>
+            </div>
+            <button class="execute-btn" onclick="processNewPayment()">
+              Send Prompt
+            </button>
+          </div>
+        </div>
+
+        <div
+          id="checkout-step-processing"
+          class="hidden"
+          style="text-align: center; padding: 40px 0"
+        >
+          <i
+            class="bx bx-loader-alt bx-spin"
+            style="font-size: 50px; color: var(--a); margin-bottom: 20px"
+          ></i>
+          <h2 style="margin-bottom: 10px">Awaiting Authorization</h2>
+          <p style="opacity: 0.7; font-size: 14px">
+            Please check your phone and enter your PIN to approve the
+            transaction.
+          </p>
+        </div>
+
+        <div
+          id="checkout-step-success"
+          class="hidden"
+          style="text-align: center; padding: 20px 0"
+        >
+          <i
+            class="bx bxs-check-circle"
+            style="font-size: 60px; color: #10b981; margin-bottom: 20px"
+          ></i>
+          <h2 style="margin-bottom: 10px">Payment Successful!</h2>
+          <p style="opacity: 0.7; font-size: 14px; margin-bottom: 30px">
+            Your subscription is now active.
+          </p>
+
+          <div
+            id="save-account-prompt"
+            class="premium-card"
+            style="text-align: left; margin-bottom: 20px"
+          >
+            <p style="font-weight: 900; font-size: 14px; margin-bottom: 5px">
+              Save this account?
+            </p>
+            <p style="font-size: 12px; opacity: 0.6; margin-bottom: 15px">
+              Link this number for faster checkout next time.
+            </p>
+            <div style="display: flex; gap: 10px">
+              <button
+                class="cancel-btn"
+                onclick="finishCheckout()"
+                style="margin: 0; flex: 1; padding: 12px"
+              >
+                No Thanks
+              </button>
+              <button
+                class="execute-btn"
+                onclick="saveAndFinishCheckout()"
+                style="margin: 0; flex: 1; padding: 12px"
+              >
+                Link Account
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <nav class="executive-nav">
       <a href="profile.html" class="nav-link"
         ><i class="bx bxs-grid-alt"></i><span>Hub</span></a
@@ -223,76 +435,234 @@
     </nav>
 
     <script>
+      // ... (Keep your existing plans object, showDetails, and goBack functions) ...
+
+      const modal = document.getElementById("checkout-modal");
+      let currentCheckoutProvider = "";
+      let currentCheckoutNumber = "";
+
+      // 1. Trigger the Modal from the Plan Details
+      document
+        .getElementById("pay-trigger")
+        .addEventListener("click", function () {
+          // Reset modal to Step 1
+          hideAllCheckoutSteps();
+          document
+            .getElementById("checkout-step-select")
+            .classList.remove("hidden");
+          document.getElementById("save-account-prompt").style.display = "none";
+          document.getElementById("checkout-amount-display").innerText =
+            `K${activePlan.price}`;
+
+          // Open Modal
+          modal.classList.add("active");
+        });
+
+      // 2. Clicked a Linked Account
+      function processLinkedPayment(provider, lastDigits) {
+        showProcessingScreen();
+        console.log(`Sending API request to Probase for saved ${provider}...`);
+
+        // Simulate API Wait (USSD Push on user's phone)
+        setTimeout(() => {
+          showSuccessScreen(false); // false = don't ask to save, it's already saved
+        }, 3000);
+      }
+
+      // 3. Clicked Alternative Method
+      function showAlternativeSelection() {
+        hideAllCheckoutSteps();
+        document.getElementById("checkout-step-alt").classList.remove("hidden");
+      }
+
+      // 4. Go back to methods list
+      function backToMethods() {
+        hideAllCheckoutSteps();
+        document
+          .getElementById("checkout-step-select")
+          .classList.remove("hidden");
+      }
+
+      // 5. Selected a New Provider
+      function enterNewDetails(provider) {
+        currentCheckoutProvider = provider;
+        hideAllCheckoutSteps();
+        document
+          .getElementById("checkout-step-details")
+          .classList.remove("hidden");
+        document.getElementById("new-provider-title").innerText =
+          `Pay with ${provider}`;
+
+        const logo = document.getElementById("new-provider-logo");
+        logo.innerText = provider.substring(0, 3);
+        logo.style.background = provider === "MTN" ? "#ffcc00" : "#009933";
+        logo.style.color = provider === "MTN" ? "#000" : "#fff";
+      }
+
+      // 6. Process New Payment
+      function processNewPayment() {
+        const numInput = document.getElementById("new-checkout-number").value;
+        if (numInput.length < 9) return alert("Please enter a valid number");
+
+        currentCheckoutNumber = numInput;
+        showProcessingScreen();
+        console.log(
+          `Sending API request to Probase for NEW ${currentCheckoutProvider} number ${currentCheckoutNumber}...`,
+        );
+
+        // Simulate API Wait (USSD Push)
+        setTimeout(() => {
+          showSuccessScreen(true); // true = ask them to save this new number
+        }, 3500);
+      }
+
+      // --- UTILITY FUNCTIONS FOR MODAL ---
+      function hideAllCheckoutSteps() {
+        ["select", "alt", "details", "processing", "success"].forEach(
+          (step) => {
+            document
+              .getElementById(`checkout-step-${step}`)
+              .classList.add("hidden");
+          },
+        );
+      }
+
+      function showProcessingScreen() {
+        hideAllCheckoutSteps();
+        document
+          .getElementById("checkout-step-processing")
+          .classList.remove("hidden");
+      }
+
+      function showSuccessScreen(askToSave) {
+        hideAllCheckoutSteps();
+        document
+          .getElementById("checkout-step-success")
+          .classList.remove("hidden");
+        if (askToSave) {
+          document.getElementById("save-account-prompt").style.display =
+            "block";
+        } else {
+          // If no need to save, redirect after 2 seconds
+          setTimeout(finishCheckout, 2000);
+        }
+      }
+
+      function saveAndFinishCheckout() {
+        console.log(
+          `Saving ${currentCheckoutProvider} - ${currentCheckoutNumber} to user profile...`,
+        );
+        // Here you would fire an API call to save the payment method to your database
+        finishCheckout();
+      }
+
+      function finishCheckout() {
+        modal.classList.remove("active");
+        // Redirect to the actual success page!
+        window.location.href = "success.html";
+      }
+
+      // Close Modal on background click
+      window.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.classList.remove("active");
+        }
+      });
+
       const plans = {
         small: {
           title: "Small Basket",
-          price: "K150",
+          price: 150,
           cap: "5kg Max",
           serv: "Signature Fold",
-          desc: "Perfect for busy professionals. Includes eco-friendly washing and precision folding.",
+          desc: "Perfect for busy professionals.",
         },
         medium: {
           title: "Medium Basket",
-          price: "K250",
+          price: 250,
           cap: "12kg Max",
           serv: "Wash, Fold & Steam",
-          desc: "Our most popular choice. Includes light steaming to ensure your clothes are ready to wear.",
+          desc: "Our most popular choice.",
         },
         large: {
           title: "Large Basket",
-          price: "K400",
+          price: 400,
           cap: "25kg Max",
           serv: "Full Valet Service",
-          desc: "Ultimate care for families. Handles heavy linens, duvets, and premium fabric treatments.",
+          desc: "Ultimate care for families.",
         },
       };
 
+      let activePlan = null;
+
       function showDetails(tier) {
-        const data = plans[tier];
-        // Hide Grid, Show Details
+        activePlan = plans[tier];
         document.getElementById("plans-selection-view").classList.add("hidden");
         document.getElementById("plan-detail-view").classList.remove("hidden");
 
-        // Update Text
         document.getElementById("view-title").innerText = "Review Plan";
-        document.getElementById("view-desc").innerText =
-          `Confirming your ${data.title} subscription.`;
         document.getElementById("view-badge").innerText = "VALET SUMMARY";
 
-        document.getElementById("det-cap").innerText = data.cap;
-        document.getElementById("det-serv").innerText = data.serv;
-        document.getElementById("det-desc").innerText = data.desc;
-        document.getElementById("det-price").innerText = data.price;
-
-        // Scroll to top
+        document.getElementById("det-cap").innerText = activePlan.cap;
+        document.getElementById("det-serv").innerText = activePlan.serv;
+        document.getElementById("det-desc").innerText = activePlan.desc;
+        document.getElementById("det-price").innerText = `K${activePlan.price}`;
         window.scrollTo(0, 0);
       }
+
+      // --- THE PAYMENT ENGINE ---
+      function makePayment() {
+        const btn = document.getElementById("pay-trigger");
+        btn.innerHTML =
+          "<i class='bx bx-loader-alt bx-spin'></i> Securing Connection...";
+        btn.style.pointerEvents = "none";
+
+        FlutterwaveCheckout({
+          public_key: "FLWPUBK_TEST-YOUR-KEY-HERE", // You'll replace this with your actual key
+          tx_ref: "MOB-" + Date.now(),
+          amount: activePlan.price,
+          currency: "ZMW",
+          payment_options: "card, mobilemoneyzambia",
+          customer: {
+            email: "customer@example.com", // This should come from your user profile later
+            phone_number: "0970000000",
+            name: "Valet Member",
+          },
+          customizations: {
+            title: "MobWash Valet",
+            description: `Subscription for ${activePlan.title}`,
+            logo: "https://your-logo-url.com/logo.png",
+          },
+          callback: function (data) {
+            console.log("Payment complete!", data);
+            if (data.status === "successful") {
+              // Trigger the success overlay you built earlier
+              window.location.href = "success.html";
+            }
+          },
+          onclose: function () {
+            btn.innerHTML = "Confirm & Pay";
+            btn.style.pointerEvents = "auto";
+          },
+        });
+      }
+
+      document
+        .getElementById("pay-trigger")
+        .addEventListener("click", makePayment);
 
       function goBack() {
         const detailView = document.getElementById("plan-detail-view");
         if (!detailView.classList.contains("hidden")) {
-          // Return to Grid
           detailView.classList.add("hidden");
           document
             .getElementById("plans-selection-view")
             .classList.remove("hidden");
           document.getElementById("view-title").innerText = "Valet Care Plans";
-          document.getElementById("view-desc").innerText =
-            "Premium laundry care tailored for your lifestyle.";
-          document.getElementById("view-badge").innerText = "FABRIC SELECTION";
         } else {
-          // Actually go back to profile
           window.location.href = "profile.html";
         }
       }
-
-      document
-        .getElementById("pay-trigger")
-        .addEventListener("click", function () {
-          this.innerHTML =
-            "<i class='bx bx-loader-alt bx-spin'></i> Securing Connection...";
-          // We will hook the payment API here next
-        });
     </script>
   </body>
 </html>
