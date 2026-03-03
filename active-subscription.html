@@ -31,13 +31,15 @@
         <div style="width: 44px"></div>
       </div>
     </header>
-
-    <main class="sub-container animated-up">
+<main class="sub-container animated-up">
       
-      <div id="setup-section" style="display: none; padding: 20px; background: rgba(37, 99, 235, 0.1); border-radius: 20px; margin-bottom: 20px;">
-        <h3 style="color: var(--text-main); margin-bottom: 10px;">Welcome! Set up your Hub</h3>
-        <input type="text" id="name-input" placeholder="Enter Full Name" style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: none;">
-        <button id="save-btn" class="btn-manage" style="margin-top: 0;">Save My Details</button>
+      <div id="empty-state-section" style="display: none; text-align: center; padding: 40px 20px;">
+        <i class="bx bx-basket" style="font-size: 80px; color: var(--text-muted); margin-bottom: 20px; opacity: 0.5;"></i>
+        <h3 style="color: var(--text-main); font-size: 1.5rem; margin-bottom: 10px;">No Active Plan</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 30px;">You are currently on a pay-per-wash basis. Upgrade to a Valet Care plan for the ultimate MobWash experience.</p>
+        <a href="subscription.html" style="text-decoration: none;">
+          <button class="btn-manage" style="background: var(--a); color: white;">View Subscription Plans</button>
+        </a>
       </div>
 
       <div id="dashboard-section" style="display: none;">
@@ -49,7 +51,7 @@
               <i class="bx bxs-chip"></i>
             </div>
             <div class="card-middle">
-              <span class="member-name" id="display-name">Loading...</span>
+              <span class="member-name" id="display-name">Valet Member</span>
             </div>
             <div class="card-bottom">
               <div class="stat">
@@ -57,8 +59,8 @@
                 <strong>Active</strong>
               </div>
               <div class="stat">
-                <small>Next Billing</small>
-                <strong id="display-date">--</strong>
+                <small>Plan Type</small>
+                <strong id="display-basket-type">--</strong>
               </div>
             </div>
           </div>
@@ -68,88 +70,79 @@
           <div class="section-title">Current Plan</div>
           <div class="glass-card-blue">
             <div class="plan-info">
-              <h3 id="display-plan">Loading Plan...</h3>
+              <h3 id="display-plan">Loading...</h3>
               <p id="display-price">--</p>
             </div>
-            <span class="plan-badge">Best Value</span>
+            <span class="plan-badge" id="display-cap">--</span>
+          </div>
+        </section>
+
+        <section class="perks-section">
+          <div class="section-title">Plan Details</div>
+          <div class="perk-item">
+            <i class="bx bx-check-shield"></i>
+            <div>
+              <strong>Service Level</strong>
+              <p id="display-serv">Loading service...</p>
+            </div>
+          </div>
+          <div class="perk-item">
+            <i class="bx bx-info-circle"></i>
+            <div>
+              <strong>Plan Description</strong>
+              <p id="display-desc">Loading description...</p>
+            </div>
           </div>
         </section>
 
         <a href="payments.html">
           <button class="btn-manage">Manage Payment Methods</button>
         </a>
-        <p class="cancel-link" id="reset-btn" style="cursor: pointer;">Reset / Clear Data</p>
+        <p class="cancel-link" id="reset-btn" style="cursor: pointer;">Cancel Subscription (Testing Reset)</p>
       </div>
     </main>
+
     <script src="js/global.js"></script>
     <script type="module" src="js/maintenance-check.js"></script>
     <script type="module" src="js/session.js"></script>
 
     <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    // 1. Grab our sections and elements
-    const setupSection = document.getElementById("setup-section");
-    const dashboardSection = document.getElementById("dashboard-section");
-    
-    const displayName = document.getElementById("display-name");
-    const displayPlan = document.getElementById("display-plan");
-    const displayPrice = document.getElementById("display-price");
-    const displayDate = document.getElementById("display-date");
+      document.addEventListener("DOMContentLoaded", () => {
+        const emptyStateSection = document.getElementById("empty-state-section");
+        const dashboardSection = document.getElementById("dashboard-section");
+        
+        // 1. Function to check data and update UI
+        function loadUserData() {
+          const activeSub = JSON.parse(localStorage.getItem("mobwash_active_plan"));
 
-    // 2. Function to check data and update UI
-    function loadUserData() {
-      // Look in the browser's local storage for our user
-      const savedUser = JSON.parse(localStorage.getItem("mobwash_user"));
+          if (activeSub) {
+            // USER IS SUBSCRIBED: Show dashboard and inject data
+            emptyStateSection.style.display = "none";
+            dashboardSection.style.display = "block";
 
-      if (savedUser) {
-        // USER EXISTS: Hide setup, show dashboard, and inject data!
-        setupSection.style.display = "none";
-        dashboardSection.style.display = "block";
+            document.getElementById("display-basket-type").textContent = activeSub.title;
+            document.getElementById("display-plan").textContent = activeSub.title;
+            document.getElementById("display-price").textContent = "K" + activeSub.price + " / week";
+            document.getElementById("display-cap").textContent = activeSub.cap;
+            document.getElementById("display-serv").textContent = activeSub.serv;
+            document.getElementById("display-desc").textContent = activeSub.desc;
+          } else {
+            // NO SUBSCRIPTION: Show empty state
+            dashboardSection.style.display = "none";
+            emptyStateSection.style.display = "block";
+          }
+        }
 
-        displayName.textContent = savedUser.name;
-        displayPlan.textContent = savedUser.plan;
-        displayPrice.textContent = savedUser.price;
-        displayDate.textContent = savedUser.billingDate;
-      } else {
-        // NO USER: Hide dashboard, show the setup form
-        dashboardSection.style.display = "none";
-        setupSection.style.display = "block";
-      }
-    }
+        // 2. Handle resetting data (just for testing purposes)
+        document.getElementById("reset-btn").addEventListener("click", () => {
+          localStorage.removeItem("mobwash_active_plan");
+          loadUserData(); // Reload the UI to show empty state
+        });
 
-    // 3. Handle saving new data
-    document.getElementById("save-btn").addEventListener("click", () => {
-      const nameValue = document.getElementById("name-input").value;
-      
-      if(nameValue.trim() === "") {
-        alert("Please enter a name.");
-        return;
-      }
-
-      // Create a new user object (Hardcoding the plan details for this example)
-      const newUser = {
-        name: nameValue,
-        plan: "Executive Tier",
-        price: "K 150.00 / month",
-        billingDate: "April 01, 2026" // You can make this dynamic later
-      };
-
-      // Save it to localStorage
-      localStorage.setItem("mobwash_user", JSON.stringify(newUser));
-      
-      // Reload the UI
-      loadUserData();
-    });
-
-    // 4. Handle resetting data (just for testing purposes)
-    document.getElementById("reset-btn").addEventListener("click", () => {
-      localStorage.removeItem("mobwash_user");
-      loadUserData();
-    });
-
-    // Run this function the moment the page loads
-    loadUserData();
-  });
-</script>
+        // Run on load
+        loadUserData();
+      });
+    </script>
+   
   </body>
 </html>

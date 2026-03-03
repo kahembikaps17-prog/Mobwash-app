@@ -556,18 +556,18 @@
         finishCheckout();
       }
 
-      function finishCheckout() {
-        modal.classList.remove("active");
-        // Redirect to the actual success page!
-        window.location.href = "success.html";
-      }
-
-      // Close Modal on background click
-      window.addEventListener("click", (e) => {
-        if (e.target === modal) {
-          modal.classList.remove("active");
+     function finishCheckout() {
+        // 1. Save the active plan details to the browser's local storage
+        if (activePlan) {
+          localStorage.setItem("mobwash_active_plan", JSON.stringify(activePlan));
+          console.log("Plan saved to local storage!");
         }
-      });
+
+        modal.classList.remove("active");
+        
+        // 2. Redirect back to the active subscription page to see the new dashboard!
+        window.location.href = "active-subscription.html"; // Change this to whatever you named your first file
+      }
 
       const plans = {
         small: {
