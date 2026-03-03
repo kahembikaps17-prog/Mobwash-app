@@ -33,65 +33,123 @@
     </header>
 
     <main class="sub-container animated-up">
-      <div class="member-card-visual">
-        <div class="card-glass-overlay"></div>
-        <div class="card-content">
-          <div class="card-top">
-            <span class="brand-name">MOBWASH <span>EXECUTIVE</span></span>
-            <i class="bx bxs-chip"></i>
-          </div>
-          <div class="card-middle">
-            <span class="member-name">Jonathan Doe</span>
-          </div>
-          <div class="card-bottom">
-            <div class="stat">
-              <small>Status</small>
-              <strong>Active</strong>
-            </div>
-            <div class="stat">
-              <small>Next Billing</small>
-              <strong>March 01, 2026</strong>
-            </div>
-          </div>
-        </div>
+      
+      <div id="setup-section" style="display: none; padding: 20px; background: rgba(37, 99, 235, 0.1); border-radius: 20px; margin-bottom: 20px;">
+        <h3 style="color: var(--text-main); margin-bottom: 10px;">Welcome! Set up your Hub</h3>
+        <input type="text" id="name-input" placeholder="Enter Full Name" style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: none;">
+        <button id="save-btn" class="btn-manage" style="margin-top: 0;">Save My Details</button>
       </div>
 
-      <section class="plan-details">
-        <div class="section-title">Current Plan</div>
-        <div class="glass-card-blue">
-          <div class="plan-info">
-            <h3>Executive Tier</h3>
-            <p>R 450.00 / month</p>
+      <div id="dashboard-section" style="display: none;">
+        <div class="member-card-visual">
+          <div class="card-glass-overlay"></div>
+          <div class="card-content">
+            <div class="card-top">
+              <span class="brand-name">MOBWASH <span>EXECUTIVE</span></span>
+              <i class="bx bxs-chip"></i>
+            </div>
+            <div class="card-middle">
+              <span class="member-name" id="display-name">Loading...</span>
+            </div>
+            <div class="card-bottom">
+              <div class="stat">
+                <small>Status</small>
+                <strong>Active</strong>
+              </div>
+              <div class="stat">
+                <small>Next Billing</small>
+                <strong id="display-date">--</strong>
+              </div>
+            </div>
           </div>
-          <span class="plan-badge">Best Value</span>
         </div>
-      </section>
 
-      <section class="perks-section">
-        <div class="section-title">Member Benefits</div>
-        <div class="perk-item">
-          <i class="bx bx-check-shield"></i>
-          <div>
-            <strong>Priority Scheduling</strong>
-            <p>Skip the queue with guaranteed 2h slots.</p>
+        <section class="plan-details">
+          <div class="section-title">Current Plan</div>
+          <div class="glass-card-blue">
+            <div class="plan-info">
+              <h3 id="display-plan">Loading Plan...</h3>
+              <p id="display-price">--</p>
+            </div>
+            <span class="plan-badge">Best Value</span>
           </div>
-        </div>
-        <div class="perk-item">
-          <i class="bx bx-star"></i>
-          <div>
-            <strong>Premium Waxing</strong>
-            <p>Included in every second wash.</p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <a href="payments.html">
-        <button class="btn-manage">Manage Payment Methods</button>
-      </a>
-      <p class="cancel-link">Cancel Subscription</p>
+        <a href="payments.html">
+          <button class="btn-manage">Manage Payment Methods</button>
+        </a>
+        <p class="cancel-link" id="reset-btn" style="cursor: pointer;">Reset / Clear Data</p>
+      </div>
     </main>
     <script src="js/global.js"></script>
     <script type="module" src="js/maintenance-check.js"></script>
     <script type="module" src="js/session.js"></script>
+
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 1. Grab our sections and elements
+    const setupSection = document.getElementById("setup-section");
+    const dashboardSection = document.getElementById("dashboard-section");
+    
+    const displayName = document.getElementById("display-name");
+    const displayPlan = document.getElementById("display-plan");
+    const displayPrice = document.getElementById("display-price");
+    const displayDate = document.getElementById("display-date");
+
+    // 2. Function to check data and update UI
+    function loadUserData() {
+      // Look in the browser's local storage for our user
+      const savedUser = JSON.parse(localStorage.getItem("mobwash_user"));
+
+      if (savedUser) {
+        // USER EXISTS: Hide setup, show dashboard, and inject data!
+        setupSection.style.display = "none";
+        dashboardSection.style.display = "block";
+
+        displayName.textContent = savedUser.name;
+        displayPlan.textContent = savedUser.plan;
+        displayPrice.textContent = savedUser.price;
+        displayDate.textContent = savedUser.billingDate;
+      } else {
+        // NO USER: Hide dashboard, show the setup form
+        dashboardSection.style.display = "none";
+        setupSection.style.display = "block";
+      }
+    }
+
+    // 3. Handle saving new data
+    document.getElementById("save-btn").addEventListener("click", () => {
+      const nameValue = document.getElementById("name-input").value;
+      
+      if(nameValue.trim() === "") {
+        alert("Please enter a name.");
+        return;
+      }
+
+      // Create a new user object (Hardcoding the plan details for this example)
+      const newUser = {
+        name: nameValue,
+        plan: "Executive Tier",
+        price: "K 150.00 / month",
+        billingDate: "April 01, 2026" // You can make this dynamic later
+      };
+
+      // Save it to localStorage
+      localStorage.setItem("mobwash_user", JSON.stringify(newUser));
+      
+      // Reload the UI
+      loadUserData();
+    });
+
+    // 4. Handle resetting data (just for testing purposes)
+    document.getElementById("reset-btn").addEventListener("click", () => {
+      localStorage.removeItem("mobwash_user");
+      loadUserData();
+    });
+
+    // Run this function the moment the page loads
+    loadUserData();
+  });
+</script>
   </body>
 </html>
